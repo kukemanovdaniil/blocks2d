@@ -12,6 +12,9 @@ endif()
 
 include(FetchContent)
 
+# ==========================================
+# FETCH SFML
+# ==========================================
 FetchContent_Declare(
     SFML
     GIT_REPOSITORY https://github.com/sfml/sfml
@@ -24,20 +27,33 @@ set(SFML_BUILD_NETWORK OFF CACHE INTERNAL "")
 
 FetchContent_MakeAvailable(SFML)
 
+# ==========================================
+# FETCH RmlUi
+# ==========================================
+
 FetchContent_Declare(
-    TGUI
-    GIT_REPOSITORY https://github.com/texus/TGUI
-    GIT_TAG        1.x
+    RmlUi
+    GIT_REPOSITORY https://github.com/mikke89/RmlUi
+    GIT_TAG        master
 )
 
-set(TGUI_BUILD_EXAMPLES OFF CACHE INTERNAL "")
-set(TGUI_BUILD_TESTS OFF CACHE INTERNAL "")
-set(TGUI_BUILD_GUI_BUILDER OFF CACHE INTERNAL "")
-set(TGUI_BACKEND "SFML_GRAPHICS" CACHE INTERNAL "")
+set(RMLUI_BUILD_SAMPLES OFF CACHE INTERNAL "")
+set(RMLUI_ENABLE_SFML_BACKEND ON CACHE INTERNAL "")
+set(RMLUI_ENABLE_GL3_RENDERER ON CACHE INTERNAL "")
 
-FetchContent_MakeAvailable(TGUI)
+FetchContent_MakeAvailable(RmlUi)
+
+FetchContent_GetProperties(RmlUi SOURCE_DIR RMLUI_SOURCE_DIR)
+
+# ==========================================
+# FIND SYSTEM OPENG
+# ==========================================
 
 find_package(OpenGL REQUIRED)
+
+# ==========================================
+# COLLECT PROJECT SOURCE FILES
+# ==========================================
 
 file(GLOB_RECURSE PROJECT_SOURCES CONFIGURE_DEPENDS
     "${CMAKE_CURRENT_SOURCE_DIR}/src/*.cpp"
@@ -45,17 +61,38 @@ file(GLOB_RECURSE PROJECT_SOURCES CONFIGURE_DEPENDS
     "${CMAKE_CURRENT_SOURCE_DIR}/src/*.h"
 )
 
+set(RMLUI_BACKEND_SOURCES
+    "${RMLUI_SOURCE_DIR}/Backends/RmlUi_Backend_SFML_GL2.cpp"
+    "${RMLUI_SOURCE_DIR}/Backends/RmlUi_Renderer_GL3.cpp"
+)
+
 add_executable(Blocks2d ${PROJECT_SOURCES})
 
-target_include_directories(Blocks2d PRIVATE "${CMAKE_CURRENT_SOURCE_DIR}")
+target_include_directories(Blocks2d PRIVATE
+    "${CMAKE_CURRENT_SOURCE_DIR}"
+    "${RMLUI_SOURCE_DIR}/Backends"
+)
+
+# ==========================================
+# LINK LIBRARIES
+# ==========================================
 
 target_link_libraries(Blocks2d PRIVATE
     sfml-graphics
     sfml-window
     sfml-system
-    tgui
+    rmlui
     OpenGL::GL
 )
+
+target_compile_definitions(Blocks2d PRIVATE 
+    RMLUI_RENDERER_GL3
+    RMLUI_PLATFORM_SFML
+)
+
+# ==========================================
+# COPY RESOURCES TO BUILD DIRECTORY
+# ==========================================
 
 add_custom_command(TARGET Blocks2d POST_BUILD
     COMMAND ${CMAKE_COMMAND} -E copy_directory
