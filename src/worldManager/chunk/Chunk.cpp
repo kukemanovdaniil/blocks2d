@@ -39,18 +39,29 @@ void Chunk::setLocalWall(unsigned int x, unsigned int y, WallType type) noexcept
 void Chunk::updateGeometry() {
     m_mesh.setPrimitiveType(sf::PrimitiveType::Triangles);
 
-    unsigned int solidTile = 0;
+    unsigned int totalTilesToRender = 0;
 
     for (unsigned int index = 0; index < CHUNK_SIZE; ++index) {
-        if (blocks[index] != BlockType::Air) {
-            solidTile += 1;
-        } 
-        else if (walls[index] != WallType::None) {
-            solidTile += 1;
+        BlockType currentBlockType = blocks[index];
+        WallType currentWallType = walls[index];
+
+        if (currentWallType != WallType::None) {
+            if (currentBlockType == BlockType::Air) {
+                totalTilesToRender += 1;
+            } else {
+                const BlockData& blockData = BlockRegistry[static_cast<size_t>(currentBlockType)];
+                if (!blockData.m_hides_behind) {
+                    totalTilesToRender += 1;
+                }
+            }
+        }
+
+        if (currentBlockType != BlockType::Air) {
+            totalTilesToRender += 1;
         }
     }
 
-    m_mesh.resize(solidTile * 6);
+    m_mesh.resize(totalTilesToRender * 6);
     
     unsigned int vertexCount = 0;
     constexpr int TEX_SIZE = 16;
@@ -96,10 +107,25 @@ void Chunk::updateGeometry() {
     for (unsigned int y = 0; y < CHUNK_H; ++y) {
         for (unsigned int x = 0; x < CHUNK_W; ++x) {
             unsigned int index = x + (y * CHUNK_W);
-            
-            if (blocks[index] == BlockType::Air && walls[index] != WallType::None) {
-                const auto& data = WallRegistry[static_cast<size_t>(walls[index])];
-                addTileToMesh(x, y, data.m_texIndex, sf::Color(175, 175, 175));
+            WallType currentWallType = walls[index];
+
+            if (currentWallType != WallType::None) {
+                BlockType currentBlockType = blocks[index];
+                
+                bool shouldRenderWall = false;
+                if (currentBlockType == BlockType::Air) {
+                    shouldRenderWall = true;
+                } else {
+                    const BlockData& blockData = BlockRegistry[static_cast<size_t>(currentBlockType)];
+                    if (!blockData.m_hides_behind) {
+                        shouldRenderWall = true;
+                    }
+                }
+
+                if (shouldRenderWall) {
+                    const auto& wallData = WallRegistry[static_cast<size_t>(currentWallType)];
+                    addTileToMesh(x, y, wallData.m_texIndex, sf::Color(130, 130, 130));
+                }
             }
         }
     }
@@ -107,10 +133,11 @@ void Chunk::updateGeometry() {
     for (unsigned int y = 0; y < CHUNK_H; ++y) {
         for (unsigned int x = 0; x < CHUNK_W; ++x) {
             unsigned int index = x + (y * CHUNK_W);
+            BlockType currentBlockType = blocks[index];
             
-            if (blocks[index] != BlockType::Air) {
-                const auto& data = BlockRegistry[static_cast<size_t>(blocks[index])];
-                addTileToMesh(x, y, data.m_texIndex, sf::Color::White);
+            if (currentBlockType != BlockType::Air) {
+                const auto& blockData = BlockRegistry[static_cast<size_t>(currentBlockType)];
+                addTileToMesh(x, y, blockData.m_texIndex, sf::Color::White);
             }
         }
     }

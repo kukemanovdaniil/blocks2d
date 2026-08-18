@@ -9,6 +9,7 @@ constexpr size_t WALL_TYPES_COUNT = 8;
 struct BlockData {
     BlockType m_type;
     bool m_collision;
+    bool m_hides_behind;
     unsigned int m_texIndex;
 };
 
