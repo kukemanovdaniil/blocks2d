@@ -12,8 +12,7 @@
 #include "src/worldManager/WorldManager.hpp"
 
 int main() {
-    sf::RenderWindow window(sf::VideoMode({Config::windowW, Config::windowH}), "Blocks2d");
-    window.setFramerateLimit(Config::windowFps);
+    sf::RenderWindow window(sf::VideoMode({Config::getScreenW(), Config::getScreenH()}), Config::windowName);
     window.setVerticalSyncEnabled(true); 
 
     initBlockData();
