@@ -38,11 +38,10 @@ FetchContent_Declare(
 )
 
 set(RMLUI_BUILD_SAMPLES OFF CACHE INTERNAL "")
-set(RMLUI_ENABLE_SFML_BACKEND ON CACHE INTERNAL "")
-set(RMLUI_ENABLE_GL3_RENDERER ON CACHE INTERNAL "")
+set(RMLUI_ENABLE_SFML_BACKEND OFF CACHE INTERNAL "")
+set(RMLUI_ENABLE_GL3_RENDERER OFF CACHE INTERNAL "")
 
 FetchContent_MakeAvailable(RmlUi)
-
 FetchContent_GetProperties(RmlUi SOURCE_DIR RMLUI_SOURCE_DIR)
 
 # ==========================================
@@ -62,7 +61,7 @@ file(GLOB_RECURSE PROJECT_SOURCES CONFIGURE_DEPENDS
 )
 
 set(RMLUI_BACKEND_SOURCES
-    "${RMLUI_SOURCE_DIR}/Backends/RmlUi_Backend_SFML_GL2.cpp"
+    "${RMLUI_SOURCE_DIR}/Backends/RmlUi_Backend_SFML_GL3.cpp"
     "${RMLUI_SOURCE_DIR}/Backends/RmlUi_Renderer_GL3.cpp"
 )
 
@@ -70,7 +69,6 @@ add_executable(Blocks2d ${PROJECT_SOURCES})
 
 target_include_directories(Blocks2d PRIVATE
     "${CMAKE_CURRENT_SOURCE_DIR}"
-    "${RMLUI_SOURCE_DIR}/Backends"
 )
 
 # ==========================================

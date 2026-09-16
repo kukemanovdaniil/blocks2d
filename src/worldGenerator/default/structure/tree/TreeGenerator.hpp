@@ -1,6 +1,6 @@
 #pragma once
 #include "src/worldManager/WorldManager.hpp"
-#include "src/worldManager/TileType/TileType.hpp"
+#include "src/worldManager/tileType/TileType.hpp"
 #include <cstdlib>
 
 void generateTree(WorldManager& world, int globalBlockX, unsigned int surfaceY) {

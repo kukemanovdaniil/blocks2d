@@ -1,7 +1,7 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 #include <vector>
-#include "src/worldManager/TileType/TileType.hpp"
+#include "src/worldManager/tileType/TileType.hpp"
 
 constexpr unsigned int CHUNK_W = 32;
 constexpr unsigned int CHUNK_H = 512;

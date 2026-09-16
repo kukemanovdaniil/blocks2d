@@ -1,5 +1,5 @@
 #include "DefaultGenerator.hpp"
-#include "src/worldManager/TileType/TileType.hpp" 
+#include "src/worldManager/tileType/TileType.hpp" 
 #include "src/worldGenerator/default/structure/tree/TreeGenerator.hpp"
 #include <cmath>
 #include <print>

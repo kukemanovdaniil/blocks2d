@@ -8,7 +8,7 @@
 
 #include "src/player/Player.hpp"
 #include "src/camera/Camera.hpp"
-#include "src/worldManager/TileData/TileData.hpp"
+#include "src/worldManager/tileData/TileData.hpp"
 #include "src/worldManager/WorldManager.hpp"
 
 int main() {
@@ -24,7 +24,7 @@ int main() {
 
     WorldManager worldManager;
     worldManager.loadAtlasTexture("res/textures/blockAtlas.png");
-    worldManager.createWorld(100);
+    worldManager.createWorld(10);
 
     Player player;
     Camera camera;

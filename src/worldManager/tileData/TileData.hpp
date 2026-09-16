@@ -1,5 +1,5 @@
 #pragma once
-#include "src/worldManager/TileType/TileType.hpp"
+#include "src/worldManager/tileType/TileType.hpp"
 #include <array>
 #include <cstddef>
 
