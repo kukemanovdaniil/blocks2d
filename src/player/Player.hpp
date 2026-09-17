@@ -8,13 +8,17 @@ class Player {
 public:
     Player();
 
-    // POSIION
+    // SETTERS
     void setPosition(const sf::Vector2f position) noexcept { m_position = position; }
+    void setSpeed(float speed) noexcept { m_speed = speed; }
+
+
+
+    // GETTERS
+    float getSpeed() const noexcept { return m_speed; }
     sf::Vector2f getPosition() const noexcept { return m_position; }
 
-    // SPEED
-    float getSpeed() const noexcept { return m_speed; }
-    void setSpeed(float speed) noexcept { m_speed = speed; }
+
 
     // OTHER
     void handleEvent(const sf::Event& event, sf::RenderWindow& window, WorldManager& worldManager) noexcept;
@@ -23,7 +27,6 @@ public:
     
     void draw(sf::RenderTarget& target) const;
 
-    // MEHANICS
     void placeTile(sf::RenderWindow& window, WorldManager& worldManager) noexcept;
     void breakTile(sf::RenderWindow& window, WorldManager& worldManager) noexcept;
 private:
