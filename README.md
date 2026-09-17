@@ -1,5 +1,5 @@
 # Blocks2D
-This is my pet project to create a 2D sandbox game. It runs on its own custom engine written in C++ 23.
+This is my pet project to create a 2D sandbox game. It runs on its own custom engine written in C++.
 
 ## Latest release
 * **[Download](https://github.com/kukemanovdaniil/blocks2d/releases/latest)**
@@ -11,4 +11,5 @@ This is my pet project to create a 2D sandbox game. It runs on its own custom en
 * **Right click** - Break block
 * **Mouse wheel** - Change zoom
 * **F8** - Close game
+* **F11** - Toggle fullscreen
 
