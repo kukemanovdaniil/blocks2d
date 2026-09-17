@@ -6,14 +6,15 @@
 #include "src/core/Config.hpp"
 #include "src/core/tickManager/TickManager.hpp" 
 
+#include "src/core/window/Window.hpp"
+
 #include "src/player/Player.hpp"
 #include "src/camera/Camera.hpp"
 #include "src/worldManager/tileData/TileData.hpp"
 #include "src/worldManager/WorldManager.hpp"
 
 int main() {
-    sf::RenderWindow window(sf::VideoMode({Config::getScreenW(), Config::getScreenH()}), Config::windowName);
-    window.setVerticalSyncEnabled(true); 
+    Window window(Config::getScreenW(), Config::getScreenH(), Config::windowTitle, Config::windowFps);
 
     initBlockData();
     initWallData();
@@ -65,7 +66,7 @@ int main() {
                     window.close();
                 }
             }
-            player.handleEvent(*event, window, worldManager);
+            player.handleEvent(*event, window.getRenderWindow(), worldManager);
         }
 
         while (tickManager.checkTick()) {
@@ -79,11 +80,11 @@ int main() {
 
         window.clear(sf::Color{82, 176, 255, 255});
 
-        camera.setView(window);
+        camera.setView(window.getRenderWindow());
 
-        worldManager.draw(window, player, camera);
+        worldManager.draw(window.getRenderWindow(), player, camera);
 
-        player.draw(window);
+        player.draw(window.getRenderWindow());
 
         window.display();
     }

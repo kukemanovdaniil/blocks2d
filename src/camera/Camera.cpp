@@ -8,18 +8,6 @@ void Camera::setZoom(float zoom) noexcept {
     m_view.setSize(m_baseSize * m_zoom);
 }
 
-void Camera::setCenter(const sf::Vector2f center) noexcept {
-    m_view.setCenter(center);
-}
-
-void Camera::setSize(const sf::Vector2f size) noexcept {
-    m_view.setSize(size);
-}
-
-void Camera::setView(sf::RenderTarget& target) noexcept {
-    target.setView(m_view);
-}
-
 void Camera::updateLerp(sf::Vector2f target, float deltaTime) noexcept {
     sf::Vector2f currentCenter = m_view.getCenter();
     float blend = 1.0f - std::exp(-m_lerp * deltaTime);

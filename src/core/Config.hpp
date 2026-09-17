@@ -3,7 +3,7 @@
 
 namespace Config {
     // CONSTANS
-    inline constexpr const char* windowName = "blocks2d";
+    inline constexpr const char* windowTitle = "blocks2d";
 
     inline constexpr unsigned int windowFps = 60;
 
