@@ -11,6 +11,6 @@ namespace Config {
     inline constexpr unsigned int defaultWindowH = 720;
 
     // GETTERS
-    unsigned int getScreenW() noexcept;
-    unsigned int getScreenH() noexcept;   
+    unsigned int getScreenW() noexcept { return sf::VideoMode::getDesktopMode().size.y; }
+    unsigned int getScreenH() noexcept { return sf::VideoMode::getDesktopMode().size.x; }
 }
