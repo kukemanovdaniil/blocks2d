@@ -1,5 +1,7 @@
 #pragma once 
+
 #include <SFML/Window/VideoMode.hpp>
+#include <SFML/Window/WindowEnums.hpp>
 
 namespace Config {
     // CONSTANS

@@ -14,7 +14,7 @@
 #include "src/worldManager/WorldManager.hpp"
 
 int main() {
-    Window window(Config::getScreenW(), Config::getScreenH(), Config::windowTitle, Config::windowFps);
+    Window window(Config::defaultWindowW, Config::defaultWindowH, Config::windowTitle, Config::windowFps);
 
     initBlockData();
     initWallData();
@@ -64,6 +64,9 @@ int main() {
             if (const auto* keyPressedEvent = event->getIf<sf::Event::KeyPressed>()) {
                 if (keyPressedEvent->code == sf::Keyboard::Key::F8) {
                     window.close();
+                }
+                if (keyPressedEvent->code == sf::Keyboard::Key::F11) {
+                    window.toggleFullscreen();
                 }
             }
             player.handleEvent(*event, window.getRenderWindow(), worldManager);

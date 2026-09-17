@@ -14,6 +14,9 @@ public:
     void clear(const sf::Color& color = sf::Color::Black) { m_window.clear(color); }
     void display() { m_window.display(); }
 
+    void toggleFullscreen() noexcept;
+    bool isFullscreen() const noexcept { return m_isFullscreen; }
+
     sf::RenderWindow& getRenderWindow() { return m_window; }
     const sf::RenderWindow& getRenderWindow() const { return m_window; }
 
@@ -24,5 +27,9 @@ private:
     const char* m_title;
     unsigned int m_fps;
 
+    bool m_isFullscreen = false;
+
     sf::RenderWindow m_window;
+
+    void centerWindow() noexcept; 
 };
