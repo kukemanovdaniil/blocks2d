@@ -5,14 +5,12 @@
 
 namespace Config {
     // CONSTANS
-    inline constexpr const char* windowTitle = "blocks2d";
+    inline constexpr const char* title = "blocks2d";
 
-    inline constexpr unsigned int windowFps = 60;
+    inline constexpr unsigned int fps = 60;
 
-    inline constexpr unsigned int defaultWindowW = 1280;
-    inline constexpr unsigned int defaultWindowH = 720;
+    inline constexpr sf::Vector2u defaultWindowSize = {1280, 720};
 
     // GETTERS
-    inline unsigned int getScreenW() noexcept { return sf::VideoMode::getDesktopMode().size.x; }
-    inline unsigned int getScreenH() noexcept { return sf::VideoMode::getDesktopMode().size.y; }
+    inline sf::Vector2u getScreenSize() noexcept { return sf::VideoMode::getDesktopMode().size; }
 }

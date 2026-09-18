@@ -14,7 +14,7 @@
 #include "src/worldManager/WorldManager.hpp"
 
 int main() {
-    Window window(Config::defaultWindowW, Config::defaultWindowH, Config::windowTitle, Config::windowFps);
+    Window window(Config::getScreenSize(), Config::title, Config::fps);
 
     initBlockData();
     initWallData();

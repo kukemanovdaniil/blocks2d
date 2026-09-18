@@ -2,9 +2,11 @@
 
 #include <SFML/Graphics.hpp>
 
+
+
 class Window {
 public:
-    Window(unsigned int windowW, unsigned int windowH, const char* windowTitle, unsigned int windowFps);
+    Window(sf::Vector2u size, const char* title, unsigned int fps);
 
     bool isOpen() const { return m_window.isOpen(); }
     void close() { m_window.close(); }
@@ -21,8 +23,9 @@ public:
     const sf::RenderWindow& getRenderWindow() const { return m_window; }
 
 private: 
-    unsigned int m_width;
-    unsigned int m_height;
+    sf::Vector2u m_size;
+    sf::Vector2u m_previousSize;
+    sf::Vector2i m_previousPos;
     
     const char* m_title;
     unsigned int m_fps;
