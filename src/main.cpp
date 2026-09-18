@@ -14,7 +14,8 @@
 #include "src/worldManager/WorldManager.hpp"
 
 int main() {
-    Window window(Config::getScreenSize(), Config::title, Config::fps);
+    Window window(Config::defaultWindowSize, Config::title, Config::fps);
+    window.toggleFullscreen();
 
     initBlockData();
     initWallData();

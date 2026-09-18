@@ -32,17 +32,19 @@ FetchContent_MakeAvailable(SFML)
 # ==========================================
 
 FetchContent_Declare(
-    RmlUi
-    GIT_REPOSITORY https://github.com/mikke89/RmlUi
-    GIT_TAG        master
+    imgui
+    GIT_REPOSITORY https://github.com/ocornut/imgui
+    GIT_TAG        docking
 )
 
-set(RMLUI_BUILD_SAMPLES OFF CACHE INTERNAL "")
-set(RMLUI_ENABLE_SFML_BACKEND OFF CACHE INTERNAL "")
-set(RMLUI_ENABLE_GL3_RENDERER OFF CACHE INTERNAL "")
+FetchContent_MakeAvailable(imgui)
 
-FetchContent_MakeAvailable(RmlUi)
-FetchContent_GetProperties(RmlUi SOURCE_DIR RMLUI_SOURCE_DIR)
+FetchContent_Declare(
+    imgui-sfml
+    GIT_REPOSITORY https://github.com/SFML/imgui-sfml
+    GIT_TAG        master
+)
+FetchContent_MakeAvailable(imgui-sfml)
 
 # ==========================================
 # FIND SYSTEM OPENG
@@ -79,13 +81,8 @@ target_link_libraries(Blocks2d PRIVATE
     sfml-graphics
     sfml-window
     sfml-system
-    rmlui
+    ImGui-SFML::ImGui-SFML
     OpenGL::GL
-)
-
-target_compile_definitions(Blocks2d PRIVATE 
-    RMLUI_RENDERER_GL3
-    RMLUI_PLATFORM_SFML
 )
 
 # ==========================================
