@@ -19,5 +19,5 @@ private:
     float m_accumulator{0.0f};
     float m_lastDeltaTime{0.0f};
 
-    static constexpr float TIME_PER_TICK = 1.0f / 5.0f; 
+    static constexpr float TIME_PER_TICK = 1.0f / 40.0f; 
 };
