@@ -16,7 +16,7 @@
 #include "src/worldManager/WorldManager.hpp"
 
 int main() {
-    Window window(Config::defaultWindowSize, Config::title, Config::fps);
+    Window window(Config::defaultWindowSize, Config::fullTitle, Config::fps);
     window.toggleFullscreen();
 
     UiManager ui;
@@ -95,7 +95,7 @@ int main() {
 
         ImGui::SetNextWindowPos(ImVec2(10, 10), ImGuiCond_Always);
         ImGui::Begin("HUD", nullptr, ImGuiWindowFlags_NoDecoration | ImGuiWindowFlags_AlwaysAutoResize | ImGuiWindowFlags_NoSavedSettings | ImGuiWindowFlags_NoFocusOnAppearing | ImGuiWindowFlags_NoNav);
-        ImGui::Text("Blocks2D");
+        ImGui::Text(Config::fullTitle);
         ImGui::Separator();
         ImGui::Text("FPS: %.1f", ImGui::GetIO().Framerate);
         ImGui::Text("Resolution: %u x %u", window.getRenderWindow().getSize().x, window.getRenderWindow().getSize().y);

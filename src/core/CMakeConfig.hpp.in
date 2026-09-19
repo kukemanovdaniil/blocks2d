@@ -1,7 +1,11 @@
 #pragma once 
 
+#include <format>
+
 namespace Config {
     // CONSTANS
     inline constexpr const char* title = "@PROJECT_NAME@";
     inline constexpr const char* version = "@PROJECT_VERSION@";
+
+    inline constexpr const char* fullTitle = "@PROJECT_NAME@ v@PROJECT_VERSION@";
 }
