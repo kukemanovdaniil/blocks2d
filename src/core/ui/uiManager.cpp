@@ -44,12 +44,10 @@ void UiManager::endFrame(sf::RenderWindow& window) noexcept {
 void UiManager::applyCustomTheme() noexcept {
     ImGuiStyle& style = ImGui::GetStyle();
     
-    // Скругления для кнопок и окон
     style.WindowRounding = 6.0f;
     style.FrameRounding = 4.0f;
     style.PopupRounding = 4.0f;
     
-    // Цветовая палитра
     ImVec4* colors = style.Colors;
     colors[ImGuiCol_WindowBg] = ImVec4(0.11f, 0.11f, 0.14f, 0.90f); 
     colors[ImGuiCol_Button]   = ImVec4(0.25f, 0.40f, 0.65f, 1.00f); 
