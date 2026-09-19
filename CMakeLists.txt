@@ -1,9 +1,8 @@
 cmake_minimum_required(VERSION 3.28)
-project(Blocks2d VERSION 1.0 LANGUAGES CXX)
+project(blocks2d VERSION 0.0.0 LANGUAGES CXX)
 
 set(CMAKE_CXX_STANDARD 23)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
-
 set(CMAKE_CXX_SCAN_FOR_MODULES OFF)
 
 if(CMAKE_CXX_COMPILER_ID STREQUAL "GNU" OR CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
@@ -12,86 +11,103 @@ endif()
 
 include(FetchContent)
 
+
+
 # ==========================================
 # FETCH SFML
 # ==========================================
 FetchContent_Declare(
     SFML
     GIT_REPOSITORY https://github.com/sfml/sfml
-    GIT_TAG        3.1.0
+    GIT_TAG        3.0.0
+    UPDATE_DISCONNECTED ON
 )
-
 set(SFML_BUILD_EXAMPLES OFF CACHE INTERNAL "")
 set(SFML_BUILD_DOC OFF CACHE INTERNAL "")
 set(SFML_BUILD_NETWORK OFF CACHE INTERNAL "")
-
+set(SFML_BUILD_AUDIO OFF CACHE INTERNAL "")
 FetchContent_MakeAvailable(SFML)
 
-# ==========================================
-# FETCH RmlUi
-# ==========================================
 
+
+# ==========================================
+# FETCH IMGUI & IMGUI-SFML
+# ==========================================
 FetchContent_Declare(
     imgui
     GIT_REPOSITORY https://github.com/ocornut/imgui
-    GIT_TAG        docking
+    GIT_TAG        v1.91.6-docking
+    UPDATE_DISCONNECTED ON
 )
-
-FetchContent_MakeAvailable(imgui)
+FetchContent_MakeAvailable(imgui) 
 
 FetchContent_Declare(
     imgui-sfml
     GIT_REPOSITORY https://github.com/SFML/imgui-sfml
-    GIT_TAG        master
+    GIT_TAG        v3.0
+    UPDATE_DISCONNECTED ON
 )
+
+set(IMGUI_DIR "${imgui_SOURCE_DIR}" CACHE PATH "Path to ImGui" FORCE)
+set(IMGUI_SFML_FIND_SFML OFF CACHE BOOL "" FORCE)
+
 FetchContent_MakeAvailable(imgui-sfml)
 
-# ==========================================
-# FIND SYSTEM OPENG
-# ==========================================
 
+
+# ==========================================
+# FIND SYSTEM OPENGL
+# ==========================================
 find_package(OpenGL REQUIRED)
+
+
 
 # ==========================================
 # COLLECT PROJECT SOURCE FILES
 # ==========================================
-
 file(GLOB_RECURSE PROJECT_SOURCES CONFIGURE_DEPENDS
     "${CMAKE_CURRENT_SOURCE_DIR}/src/*.cpp"
     "${CMAKE_CURRENT_SOURCE_DIR}/src/*.hpp"
     "${CMAKE_CURRENT_SOURCE_DIR}/src/*.h"
 )
 
-set(RMLUI_BACKEND_SOURCES
-    "${RMLUI_SOURCE_DIR}/Backends/RmlUi_Backend_SFML_GL3.cpp"
-    "${RMLUI_SOURCE_DIR}/Backends/RmlUi_Renderer_GL3.cpp"
-)
-
 add_executable(Blocks2d ${PROJECT_SOURCES})
 
-target_include_directories(Blocks2d PRIVATE
-    "${CMAKE_CURRENT_SOURCE_DIR}"
+configure_file(
+    "${CMAKE_CURRENT_SOURCE_DIR}/src/core/CMakeConfig.hpp.in"
+    "${CMAKE_CURRENT_SOURCE_DIR}/src/core/CMakeConfig.hpp"
 )
+
+target_include_directories(Blocks2d PRIVATE 
+    "${CMAKE_CURRENT_SOURCE_DIR}"
+    "${CMAKE_CURRENT_SOURCE_DIR}/src"
+    "${imgui_SOURCE_DIR}"
+    "${imgui-sfml_SOURCE_DIR}"
+)
+
+
 
 # ==========================================
 # LINK LIBRARIES
 # ==========================================
-
 target_link_libraries(Blocks2d PRIVATE
-    sfml-graphics
-    sfml-window
-    sfml-system
+    SFML::Graphics
+    SFML::Window
+    SFML::System
     ImGui-SFML::ImGui-SFML
     OpenGL::GL
 )
 
+
+
 # ==========================================
 # COPY RESOURCES TO BUILD DIRECTORY
 # ==========================================
-
-add_custom_command(TARGET Blocks2d POST_BUILD
-    COMMAND ${CMAKE_COMMAND} -E copy_directory
-    "${CMAKE_CURRENT_SOURCE_DIR}/res"
-    "$<TARGET_FILE_DIR:Blocks2d>/res"
-    COMMENT "Copying resources to build directory..."
-)
+if(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/res")
+    add_custom_command(TARGET Blocks2d POST_BUILD
+        COMMAND ${CMAKE_COMMAND} -E copy_directory
+        "${CMAKE_CURRENT_SOURCE_DIR}/res"
+        "$<TARGET_FILE_DIR:Blocks2d>/res"
+        COMMENT "Copying resources to build directory..."
+    )
+endif()

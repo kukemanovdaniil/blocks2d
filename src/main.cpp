@@ -4,9 +4,11 @@
 #include <optional>
 
 #include "src/core/Config.hpp"
-#include "src/core/tickManager/TickManager.hpp" 
+#include "src/core/tick/TickManager.hpp" 
 
 #include "src/core/window/Window.hpp"
+#include "src/core/ui/uiManager.hpp"
+#include <imgui.h>
 
 #include "src/player/Player.hpp"
 #include "src/camera/Camera.hpp"
@@ -16,6 +18,12 @@
 int main() {
     Window window(Config::defaultWindowSize, Config::title, Config::fps);
     window.toggleFullscreen();
+
+    UiManager ui;
+    if (auto uiInit = ui.init(window.getRenderWindow()); !uiInit) {
+        std::cerr << "ui error : " << uiInit.error() << std::endl;
+        return -1;
+    }
 
     initBlockData();
     initWallData();
@@ -53,6 +61,8 @@ int main() {
                 window.close();
             }
 
+            ui.handleEvent(window.getRenderWindow(), *event);
+
             if (const auto* scrollEvent = event->getIf<sf::Event::MouseWheelScrolled>()) {
                 if (scrollEvent->wheel == sf::Mouse::Wheel::Vertical) {
             
@@ -77,6 +87,24 @@ int main() {
             player.update(tickManager.getTimePerTick());
         }
 
+        // ==========================================
+        // RENDER UI
+        // ==========================================
+
+        ui.beginFrame(window.getRenderWindow());
+
+        ImGui::SetNextWindowPos(ImVec2(10, 10), ImGuiCond_Always);
+        ImGui::Begin("HUD", nullptr, ImGuiWindowFlags_NoDecoration | ImGuiWindowFlags_AlwaysAutoResize | ImGuiWindowFlags_NoSavedSettings | ImGuiWindowFlags_NoFocusOnAppearing | ImGuiWindowFlags_NoNav);
+        ImGui::Text("Blocks2D");
+        ImGui::Separator();
+        ImGui::Text("FPS: %.1f", ImGui::GetIO().Framerate);
+        ImGui::Text("Resolution: %u x %u", window.getRenderWindow().getSize().x, window.getRenderWindow().getSize().y);
+        ImGui::End();
+
+        // ==========================================
+        // RENDER
+        // ==========================================
+
         float alpha = tickManager.getInterpolationFactor();
         player.interpolate(alpha);
 
@@ -89,6 +117,8 @@ int main() {
         worldManager.draw(window.getRenderWindow(), player, camera);
 
         player.draw(window.getRenderWindow());
+
+        ui.endFrame(window.getRenderWindow());
 
         window.display();
     }

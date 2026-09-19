@@ -2,6 +2,7 @@
 #include "src/worldGenerator/default/DefaultGenerator.hpp"
 #include "src/math/random/RandomInRange.hpp"
 #include "src/player/Player.hpp"
+#include <filesystem>
 #include <print>
 
 void WorldManager::createWorld(int size) {
@@ -22,10 +23,16 @@ void WorldManager::createWorld(int size) {
 }
 
 void WorldManager::loadAtlasTexture(const char* path) {
-    if (!m_blockAtlas.loadFromFile(path)) {
-        std::println("Failed load tex: blockAtlas");
+    if (!std::filesystem::exists(path)) {
+        std::println("FAILED TEXTURE: atlas not found in the path");
         return;
     }
+
+    if (!m_blockAtlas.loadFromFile(path)) {
+        std::println("FAILED TEXTURE: atlas not load");
+        return;
+    }
+
     m_blockAtlas.setSmooth(false);
     (void)m_blockAtlas.generateMipmap();
     

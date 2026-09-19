@@ -31,7 +31,7 @@ public:
 private:
     float m_zoom{1.0f};
     float m_currentZoom{1.0f};
-    float m_lerp{7.0f};
+    float m_lerp{9.0f};
     sf::Vector2f m_baseSize{1280, 720};
 
     sf::View m_view;

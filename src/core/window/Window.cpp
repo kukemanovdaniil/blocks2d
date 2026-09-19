@@ -40,7 +40,6 @@ void Window::toggleFullscreen() noexcept {
             sf::State::Windowed
         );
         m_window.setPosition(m_previousPos);
-        m_window.setSize(m_previousSize);
     }
 
     m_window.setFramerateLimit(m_fps);

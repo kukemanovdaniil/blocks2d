@@ -3,10 +3,10 @@
 #include <SFML/Window/VideoMode.hpp>
 #include <SFML/Window/WindowEnums.hpp>
 
+#include "CMakeConfig.hpp"
+
 namespace Config {
     // CONSTANS
-    inline constexpr const char* title = "blocks2d";
-
     inline constexpr unsigned int fps = 60;
 
     inline constexpr sf::Vector2u defaultWindowSize = {1280, 720};

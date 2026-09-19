@@ -2,8 +2,6 @@
 
 #include <SFML/Graphics.hpp>
 
-
-
 class Window {
 public:
     Window(sf::Vector2u size, const char* title, unsigned int fps);
