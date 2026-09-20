@@ -3,6 +3,8 @@
 #include <imgui.h>
 #include <imgui-SFML.h>
 
+#include <print>
+
 UiManager::UiManager() noexcept = default;
 
 UiManager::~UiManager() {
@@ -42,26 +44,28 @@ void UiManager::endFrame(sf::RenderWindow& window) noexcept {
 }
 
 void UiManager::applyCustomTheme() noexcept {
-    ImGuiStyle& style = ImGui::GetStyle();
+    ImGuiStyle& style{ImGui::GetStyle()};
     
     style.WindowRounding = 6.0f;
     style.FrameRounding = 4.0f;
     style.PopupRounding = 4.0f;
     
-    ImVec4* colors = style.Colors;
+    ImVec4* colors{style.Colors};
     colors[ImGuiCol_WindowBg] = ImVec4(0.11f, 0.11f, 0.14f, 0.90f); 
     colors[ImGuiCol_Button]   = ImVec4(0.25f, 0.40f, 0.65f, 1.00f); 
     colors[ImGuiCol_ButtonHovered] = ImVec4(0.35f, 0.50f, 0.78f, 1.00f);
 
 
 
-    ImGuiIO& io = ImGui::GetIO();
+    ImGuiIO& io{ImGui::GetIO()};
     
     io.Fonts->Clear(); 
 
-    ImFont* customFont = io.Fonts->AddFontFromFileTTF("res/fonts/IntelOneMono-VariableFont_wght.ttf", 18.0f);
+    ImFont* customFont{io.Fonts->AddFontFromFileTTF("res/fonts/IntelOneMono-VariableFont_wght.ttf", 18.0f)};
     
     if (customFont != nullptr) {
-        ImGui::SFML::UpdateFontTexture();
+        if (!ImGui::SFML::UpdateFontTexture()) {
+            std::println("FAILED TEXT: text not load");
+        }
     }
 }

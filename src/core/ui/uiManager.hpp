@@ -24,7 +24,7 @@ public:
 
 private:
     sf::Clock m_deltaClock;
-    bool m_isInitialized = false;
+    bool m_isInitialized{false};
 
     void applyCustomTheme() noexcept;
 };

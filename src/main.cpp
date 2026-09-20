@@ -36,7 +36,7 @@ int main() {
     worldManager.createWorld(10);
 
     Player player;
-    Camera camera;
+    Camera camera(1.0f, 9.0f, sf::Vector2f(Config::getScreenSize()));
 
     while (window.isOpen()) {
         tickManager.update();
@@ -45,6 +45,9 @@ int main() {
         while (const std::optional<sf::Event> event = window.pollEvent()) {
             if (event->is<sf::Event::Closed>()) {
                 window.close();
+            }
+            if (event->is<sf::Event::Resized>()) {
+                camera.setBaseSize(sf::Vector2f(Config::getScreenSize()));
             }
 
             ui.handleEvent(window.getRenderWindow(), *event);
