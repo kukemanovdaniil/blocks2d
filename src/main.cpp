@@ -87,7 +87,11 @@ int main() {
         ImGui::Separator();
         ImGui::Text("FPS: %.1f", ImGui::GetIO().Framerate);
         ImGui::Text("Resolution: %u x %u", window.getRenderWindow().getSize().x, window.getRenderWindow().getSize().y);
-        ImGui::Text("Position: %.1f x %.1f", player.getPosition().x, player.getPosition().y);
+
+        int positionX = static_cast<int>(player.getPosition().x / TILE_SIZE);
+        int positionY = static_cast<int>(player.getPosition().y / TILE_SIZE);
+
+        ImGui::Text("Position: %i x %i", positionX, positionY);
         ImGui::End();
 
 
