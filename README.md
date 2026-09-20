@@ -21,4 +21,4 @@ This is my pet project to create a 2D sandbox game. It runs on its own custom en
 | **Mouse Wheel** | Change Zoom |
 | **F8** | Close Game |
 | **F11** | Toggle Fullscreen |
-| **LShift** | Sprint |
+| **Left Shift** | Sprint |
