@@ -1,4 +1,4 @@
-<p align="right">
+<p align="left">
   <img src="https://github.com/kukemanovdaniil/blocks2d/blob/main/res/logos/blocks2dfulllogo.svg" alt="Blocks2d Logo" width="500"/>
 </p>
 
