@@ -7,7 +7,6 @@ This is my pet project to create a 2D sandbox game. It runs on its own custom en
 
 
 ## Latest release
-* **[Download](https://github.com/kukemanovdaniil/blocks2d/releases/latest)**
 
 
 
