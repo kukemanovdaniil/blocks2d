@@ -1,6 +1,6 @@
-![](res/textures/blocks2dfulllogo.svg)
+![](logos/blocks2dfulllogo.svg)
 
-This is my pet project to create a 2D sandbox game. It runs on its own custom engine written in C++.
+This is my pet project to create a 2D sandbox game. It runs on its own custom engine written in C++
 
 ## Latest release
 * **[Download](https://github.com/kukemanovdaniil/blocks2d/releases/latest)**
