@@ -19,8 +19,8 @@ This is my pet project to create a 2D sandbox game. It runs on its own custom en
 | :--- | :--- |
 | **W \| A \| S \| D** | Player Movement |
 | **R** | Change Build Mode |
-| **Left click** | Place Block |
-| **Right click** | Break Block |
-| **Mouse wheel** | Change Zoom |
+| **Left Click** | Place Block |
+| **Right Click** | Break Block |
+| **Mouse Wheel** | Change Zoom |
 | **F8** | Close Game |
 | **F11** | Toggle Fullscreen |
