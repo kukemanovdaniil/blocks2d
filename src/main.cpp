@@ -85,7 +85,7 @@ int main() {
         ImGui::Begin("HUD", nullptr, ImGuiWindowFlags_NoDecoration | ImGuiWindowFlags_AlwaysAutoResize | ImGuiWindowFlags_NoSavedSettings | ImGuiWindowFlags_NoFocusOnAppearing | ImGuiWindowFlags_NoNav);
         ImGui::Text(Config::fullTitle);
         ImGui::Separator();
-        ImGui::Text("FPS: %.1f", ImGui::GetIO().Framerate);
+        ImGui::Text("FPS: %u", static_cast<unsigned int>(ImGui::GetIO().Framerate));
         ImGui::Text("Resolution: %u x %u", window.getRenderWindow().getSize().x, window.getRenderWindow().getSize().y);
 
         int positionX = static_cast<int>(player.getPosition().x / TILE_SIZE);
