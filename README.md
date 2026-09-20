@@ -1,4 +1,4 @@
-![](logos/blocks2dfulllogo.svg)
+![](https://github.com/kukemanovdaniil/blocks2d/blob/main/res/logos/blocks2dfulllogo.svg)
 
 This is my pet project to create a 2D sandbox game. It runs on its own custom engine written in C++
 
