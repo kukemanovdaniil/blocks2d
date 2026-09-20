@@ -7,5 +7,5 @@ namespace Config {
     inline constexpr const char* title = "@PROJECT_NAME@";
     inline constexpr const char* version = "@PROJECT_VERSION@";
 
-    inline constexpr const char* fullTitle = "@PROJECT_NAME@ v@PROJECT_VERSION@";
+    inline constexpr const char* fullTitle = "@PROJECT_NAME@ @PROJECT_VERSION@";
 }

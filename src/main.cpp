@@ -33,28 +33,14 @@ int main() {
 
     WorldManager worldManager;
     worldManager.loadAtlasTexture("res/textures/blockAtlas.png");
-    worldManager.createWorld(10);
+    //worldManager.createWorld(10);
 
     Player player;
     Camera camera;
-        
-    float fpsTimer = 0.0f;
-    int frameCount = 0;
-    int currentFps = 0;
 
     while (window.isOpen()) {
         tickManager.update();
         float deltaTime = tickManager.getLastDeltaTime();
-
-        fpsTimer += deltaTime;
-        frameCount++;
-
-        if (fpsTimer >= 1.0f) {
-            currentFps = frameCount;
-            frameCount = 0;
-            fpsTimer = 0.0f;
-            std::println("FPS: {}", currentFps);
-        }
 
         while (const std::optional<sf::Event> event = window.pollEvent()) {
             if (event->is<sf::Event::Closed>()) {
@@ -87,6 +73,8 @@ int main() {
             player.update(tickManager.getTimePerTick());
         }
 
+
+
         // ==========================================
         // RENDER UI
         // ==========================================
@@ -97,9 +85,12 @@ int main() {
         ImGui::Begin("HUD", nullptr, ImGuiWindowFlags_NoDecoration | ImGuiWindowFlags_AlwaysAutoResize | ImGuiWindowFlags_NoSavedSettings | ImGuiWindowFlags_NoFocusOnAppearing | ImGuiWindowFlags_NoNav);
         ImGui::Text(Config::fullTitle);
         ImGui::Separator();
-        ImGui::Text("FPS: %u", static_cast<unsigned int>(ImGui::GetIO().Framerate));
+        ImGui::Text("FPS: %.1f", ImGui::GetIO().Framerate);
         ImGui::Text("Resolution: %u x %u", window.getRenderWindow().getSize().x, window.getRenderWindow().getSize().y);
+        ImGui::Text("Position: %.1f x %.1f", player.getPosition().x, player.getPosition().y);
         ImGui::End();
+
+
 
         // ==========================================
         // RENDER
