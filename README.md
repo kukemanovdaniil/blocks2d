@@ -15,10 +15,10 @@ This is my pet project to create a 2D sandbox game. It runs on its own custom en
 
 | Key / Action | Description |
 | :--- | :--- |
-| **W \| A \| S \| D** | Player movement |
-| **R** | Change build mode |
-| **Left click** | Place block |
-| **Right click** | Break block |
-| **Mouse wheel** | Change zoom |
-| **F8** | Close game |
-| **F11** | Toggle fullscreen |
+| **W \| A \| S \| D** | Player Movement |
+| **R** | Change Build Mode |
+| **Left click** | Place Block |
+| **Right click** | Break Block |
+| **Mouse wheel** | Change Zoom |
+| **F8** | Close Game |
+| **F11** | Toggle Fullscreen |
