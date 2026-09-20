@@ -5,6 +5,10 @@
 #include <filesystem>
 #include <print>
 
+#ifdef _WIN32
+#include <GL/glext.h>
+#endif
+
 void WorldManager::createWorld(int size) {
     DefaultGenerator generator(randomInRange(-999, 999));
     for (int i = -size; i < size; ++i) {

@@ -35,7 +35,7 @@ void DefaultGenerator::generateLandscape(Chunk& chunk, int chunkX) {
                 chunk.setLocalBlock(x, y, BlockType::Basalt);
                 chunk.setLocalWall(x, y, WallType::Basalt);
             }
-            else if (y >= CHUNK_H - 50) {
+            else if (y >= surfaceY + CHUNK_H / 3) {
                 chunk.setLocalBlock(x, y, BlockType::Andesite);
                 chunk.setLocalWall(x, y, WallType::Andesite);
             }

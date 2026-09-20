@@ -3,8 +3,8 @@
 #include <array>
 #include <cstddef>
 
-constexpr size_t BLOCK_TYPES_COUNT = 8; 
-constexpr size_t WALL_TYPES_COUNT = 8; 
+constexpr size_t BLOCK_TYPES_COUNT = 10; 
+constexpr size_t WALL_TYPES_COUNT = 10; 
 
 struct BlockData {
     BlockType m_type;

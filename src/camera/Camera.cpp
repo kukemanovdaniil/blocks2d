@@ -1,5 +1,6 @@
-#include <SFML/Graphics.hpp>
 #include "src/camera/Camera.hpp"
+
+#include <SFML/Graphics.hpp>
 #include <cmath>
 #include <algorithm>
 
@@ -12,7 +13,6 @@ Camera::Camera(float zoom, float lerp, sf::Vector2f baseSize)
 
 void Camera::setZoom(float zoom) noexcept {
     m_zoom = zoom;
-    m_view.setSize(m_baseSize * m_zoom);
 }
 
 void Camera::updateLerp(sf::Vector2f target, float deltaTime) noexcept {
@@ -21,7 +21,7 @@ void Camera::updateLerp(sf::Vector2f target, float deltaTime) noexcept {
 
     float newX{std::lerp(currentCenter.x, target.x, blend)};
     float newY{std::lerp(currentCenter.y, target.y, blend)};
-    m_view.setCenter({newX, newY});
+    m_view.setCenter({std::round(newX), std::round(newY)});
 
     m_currentZoom = std::lerp(m_currentZoom, m_zoom, blend);
 

@@ -76,6 +76,9 @@ int main() {
             player.update(tickManager.getTimePerTick());
         }
 
+        float alpha = tickManager.getInterpolationFactor();
+        player.interpolate(alpha);
+
 
 
         // ==========================================
@@ -103,10 +106,7 @@ int main() {
         // RENDER
         // ==========================================
 
-        float alpha = tickManager.getInterpolationFactor();
-        player.interpolate(alpha);
-
-        camera.updateLerp(player.getPosition() - sf::Vector2f{0.0, 16.0}, deltaTime);
+        camera.updateLerp(player.getVusialPosition() - sf::Vector2f{0.0, 16.0}, deltaTime);
 
         window.clear(sf::Color{82, 176, 255, 255});
 

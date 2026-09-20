@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.28)
-project(blocks2d VERSION 0.0.0 LANGUAGES CXX)
+project(blocks2d VERSION 0.1.0 LANGUAGES CXX)
 
 set(CMAKE_CXX_STANDARD 23)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
@@ -8,6 +8,17 @@ set(CMAKE_CXX_SCAN_FOR_MODULES OFF)
 if(CMAKE_CXX_COMPILER_ID STREQUAL "GNU" OR CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
     add_compile_options(-Wall -Wextra -Wpedantic)
 endif()
+
+
+
+# ==========================================
+# GLOBAL SETTINGS STATIC BUILD
+# ==========================================
+set(BUILD_SHARED_LIBS OFF CACHE BOOL "Build shared libraries" FORCE)
+
+set(SFML_STATIC_LIBRARIES ON CACHE BOOL "Link SFML statically" FORCE)
+
+
 
 include(FetchContent)
 
@@ -49,6 +60,7 @@ FetchContent_Declare(
 )
 
 set(IMGUI_DIR "${imgui_SOURCE_DIR}" CACHE PATH "Path to ImGui" FORCE)
+set(BUILD_SHARED_LIBS OFF CACHE BOOL "" FORCE) 
 set(IMGUI_SFML_FIND_SFML OFF CACHE BOOL "" FORCE)
 
 FetchContent_MakeAvailable(imgui-sfml)
@@ -97,6 +109,28 @@ target_link_libraries(Blocks2d PRIVATE
     ImGui-SFML::ImGui-SFML
     OpenGL::GL
 )
+
+if(WIN32 AND CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
+    target_link_libraries(Blocks2d PRIVATE stdc++exp)
+endif()
+
+
+
+# ==========================================
+# OTHER FLAGS FOR BUILD
+# ==========================================
+if(WIN32)
+    target_link_options(Blocks2d PRIVATE 
+        "-static" 
+        "-static-libgcc" 
+        "-static-libstdc++"
+    )
+elseif(CMAKE_SYSTEM_NAME STREQUAL "Linux")
+    target_link_options(Blocks2d PRIVATE 
+        "-static-libgcc" 
+        "-static-libstdc++"
+    )
+endif()
 
 
 

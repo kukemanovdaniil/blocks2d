@@ -17,6 +17,7 @@ public:
     // GETTERS
     float getSpeed() const noexcept { return m_speed; }
     sf::Vector2f getPosition() const noexcept { return m_position; }
+    sf::Vector2f getVusialPosition() const noexcept { return m_visualPosition; }
 
 
 
