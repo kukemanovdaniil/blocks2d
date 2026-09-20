@@ -8,7 +8,7 @@ This is my pet project to create a 2D sandbox game. It runs on its own custom en
 
 
 ## Download releases
-[`latest`](https://github.com/kukemanovdaniil/blocks2d/releases/latest)
+[`latest`](https://github.com/kukemanovdaniil/blocks2d/releases/pre-release)
 | [`stable`](https://github.com/kukemanovdaniil/blocks2d/releases/latest)
 
 
