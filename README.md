@@ -6,15 +6,12 @@ This is my pet project to create a 2D sandbox game. It runs on its own custom en
 
 
 
+## Latest releases
+[`download`](https://github.com/kukemanovdaniil/blocks2d/releases/latest)
 
-## Download releases
-[`latest`](https://github.com/kukemanovdaniil/blocks2d/releases/latest)
-| [`pre-release`](https://github.com/kukemanovdaniil/blocks2d/releases/tag/pre-release)
-| [`stable`](https://github.com/kukemanovdaniil/blocks2d/releases/tag/stable)
 
 
 ## Controls
-
 | Key / Action | Description |
 | :--- | :--- |
 | **W \| A \| S \| D** | Player Movement |
@@ -24,3 +21,4 @@ This is my pet project to create a 2D sandbox game. It runs on its own custom en
 | **Mouse Wheel** | Change Zoom |
 | **F8** | Close Game |
 | **F11** | Toggle Fullscreen |
+| **LShift** | Sprint |
