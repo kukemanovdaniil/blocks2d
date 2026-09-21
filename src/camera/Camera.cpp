@@ -21,7 +21,7 @@ void Camera::updateLerp(sf::Vector2f target, float deltaTime) noexcept {
 
     float newX{std::lerp(currentCenter.x, target.x, blend)};
     float newY{std::lerp(currentCenter.y, target.y, blend)};
-    m_view.setCenter({std::round(newX), std::round(newY)});
+    m_view.setCenter({newX, newY});
 
     m_currentZoom = std::lerp(m_currentZoom, m_zoom, blend);
 

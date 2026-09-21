@@ -6,8 +6,6 @@ float Chunk::getGlobalX() const noexcept {
     return globalX;
 }
 
-
-
 BlockType Chunk::getLocalBlock(unsigned int x, unsigned int y) noexcept {
     if (x < CHUNK_W && y < CHUNK_H) {
         return blocks[x + (y * CHUNK_W)];
@@ -21,7 +19,6 @@ void Chunk::setLocalBlock(unsigned int x, unsigned int y, BlockType type) noexce
     }
 }
 
-
 WallType Chunk::getLocalWall(unsigned int x, unsigned int y) noexcept {
     if (x < CHUNK_W && y < CHUNK_H) {
         return walls[x + (y * CHUNK_W)];
@@ -34,7 +31,6 @@ void Chunk::setLocalWall(unsigned int x, unsigned int y, WallType type) noexcept
         walls[x + (y * CHUNK_W)] = type;
     }
 }
-
 
 void Chunk::updateGeometry() {
     m_mesh.setPrimitiveType(sf::PrimitiveType::Triangles);
@@ -69,7 +65,9 @@ void Chunk::updateGeometry() {
     auto addTileToMesh = [&](unsigned int x, unsigned int y, unsigned int texIndex, sf::Color color) {
         float posX0 = getGlobalX() + x * TILE_SIZE;
         float posX1 = posX0 + TILE_SIZE;
-        float posY0 = static_cast<float>(y) * TILE_SIZE;
+        
+        float flippedY = static_cast<float>(CHUNK_H - 1 - y); 
+        float posY0 = flippedY * TILE_SIZE;
         float posY1 = posY0 + TILE_SIZE;
 
         float texX0 = static_cast<float>(texIndex * TEX_SIZE);
@@ -106,11 +104,10 @@ void Chunk::updateGeometry() {
 
     for (unsigned int y = 0; y < CHUNK_H; ++y) {
         for (unsigned int x = 0; x < CHUNK_W; ++x) {
-            unsigned int index = x + (y * CHUNK_W);
-            WallType currentWallType = walls[index];
+            WallType currentWallType = getLocalWall(x, y);
 
             if (currentWallType != WallType::None) {
-                BlockType currentBlockType = blocks[index];
+                BlockType currentBlockType = getLocalBlock(x, y);
                 
                 bool shouldRenderWall = false;
                 if (currentBlockType == BlockType::Air) {
@@ -132,8 +129,7 @@ void Chunk::updateGeometry() {
 
     for (unsigned int y = 0; y < CHUNK_H; ++y) {
         for (unsigned int x = 0; x < CHUNK_W; ++x) {
-            unsigned int index = x + (y * CHUNK_W);
-            BlockType currentBlockType = blocks[index];
+            BlockType currentBlockType = getLocalBlock(x, y);
             
             if (currentBlockType != BlockType::Air) {
                 const auto& blockData = BlockRegistry[static_cast<size_t>(currentBlockType)];

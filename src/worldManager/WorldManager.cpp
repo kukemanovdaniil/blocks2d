@@ -62,12 +62,14 @@ BlockType WorldManager::getGlobalBlockInPixels(float globalX, float globalY) {
         
     float localPixelX = globalX - chunk.getGlobalX();
     unsigned int tileX = static_cast<unsigned int>(localPixelX / TILE_SIZE);
-    unsigned int tileY = static_cast<unsigned int>(globalY / TILE_SIZE);
+    
+    float localPixelY = CHUNK_H_PIXELS - globalY;
+    unsigned int tileY = static_cast<unsigned int>(localPixelY / TILE_SIZE);
+
+    if (tileY >= CHUNK_H) tileY = CHUNK_H - 1;
 
     return chunk.getLocalBlock(tileX, tileY);
 } 
-
-
 
 BlockType WorldManager::getGlobalBlock(int blockX, int blockY) {
     if (blockY < 0 || blockY >= static_cast<int>(CHUNK_H)) return BlockType::Air;
@@ -93,8 +95,6 @@ bool WorldManager::setGlobalBlock(int blockX, int blockY, BlockType type) {
     return true;
 }
 
-
-
 WallType WorldManager::getGlobalWall(int blockX, int blockY) {
     if (blockY < 0 || blockY >= static_cast<int>(CHUNK_H)) return WallType::None;
     int chunkX = static_cast<int>(std::floor(static_cast<float>(blockX) / CHUNK_W));
@@ -118,6 +118,7 @@ bool WorldManager::setGlobalWall(int blockX, int blockY, WallType type) {
     it->second.updateGeometry();
     return true;
 }
+
 
 
 

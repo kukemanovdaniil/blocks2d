@@ -3,23 +3,21 @@
 #include "src/worldManager/tileType/TileType.hpp"
 #include <cstdlib>
 
+
 void generateTree(WorldManager& world, int globalBlockX, unsigned int surfaceY) {
     unsigned int treeHeight = 4 + (std::rand() % 10);
 
     for (unsigned int i = 1; i <= treeHeight; ++i) {
-        int wallY = static_cast<int>(surfaceY) - i;
-        if (wallY >= 0) {
+        unsigned int wallY = surfaceY + i;
+        if (wallY < CHUNK_H) {
             world.setGlobalWall(globalBlockX, wallY, WallType::Oak);
         }
     }
 
-    int topY = static_cast<int>(surfaceY) - treeHeight;
-    for (int leafY = topY - 4; leafY <= topY; ++leafY) {
+    int topY = static_cast<int>(surfaceY) + treeHeight;
+    for (int leafY = topY; leafY <= topY + 4; ++leafY) {
         for (int leafX = globalBlockX - 2; leafX <= globalBlockX + 2; ++leafX) {
-            if (leafY >= 0) {
-                if (leafX == globalBlockX && leafY > topY - 1) {
-                    continue;
-                }
+            if (leafY < static_cast<int>(CHUNK_H)) {
                 world.setGlobalWall(leafX, leafY, WallType::Leaves);
             }
         }

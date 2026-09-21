@@ -21,9 +21,10 @@ private:
     }
 
     float calculateCaveValue(int globalX, int globalY) { return m_cavesNoise.GetNoise(static_cast<float>(globalX), static_cast<float>(globalY)); }
-
+    
     void generateLandscape(Chunk& chunk, int chunkX);
     void generateVegetation(Chunk& chunk, int chunkX);
+    
     void generateCaves(Chunk& chunk, int chunkX);
 
     static constexpr int BASE_LEVEL = CHUNK_H / 2 - 25;

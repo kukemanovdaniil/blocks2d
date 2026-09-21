@@ -15,7 +15,9 @@ void Player::placeTile(sf::RenderWindow& window, WorldManager& worldManager) noe
         sf::Vector2f worldPos{window.mapPixelToCoords(mousePos)};
 
         int tileX{static_cast<int>(std::floor(worldPos.x / 32.0f))};
+
         int tileY{static_cast<int>(std::floor(worldPos.y / 32.0f))};
+        tileY = static_cast<int>(CHUNK_H) - 1 - tileY;
 
         if (buildMode == BuildModeType::Block) {
             worldManager.setGlobalBlock(tileX, tileY, BlockType::Limestone);
@@ -32,7 +34,9 @@ void Player::breakTile(sf::RenderWindow& window, WorldManager& worldManager) noe
         sf::Vector2f worldPos{window.mapPixelToCoords(mousePos)};
 
         int tileX{static_cast<int>(std::floor(worldPos.x / 32.0f))};
+
         int tileY{static_cast<int>(std::floor(worldPos.y / 32.0f))};
+        tileY = static_cast<int>(CHUNK_H) - 1 - tileY;
 
         if (buildMode == BuildModeType::Block) {
             worldManager.setGlobalBlock(tileX, tileY, BlockType::Air);
