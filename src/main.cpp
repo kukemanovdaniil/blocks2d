@@ -96,8 +96,8 @@ int main() {
 
         int positionX = static_cast<int>(player.getPosition().x / TILE_SIZE);
         int positionY = static_cast<int>(player.getPosition().y / TILE_SIZE);
-
         ImGui::Text("Position: %i x %i", positionX, positionY);
+        
         ImGui::End();
 
 
