@@ -4,13 +4,13 @@
 #include <cmath>
 
 Player::Player() {
-    m_shape.setSize({WIDTH, HEIGHT});
-    m_shape.setOrigin({WIDTH / 2.0f, HEIGHT / 2.0f});
+    m_shape.setSize(TEXTURE_SIZE);
+    m_shape.setOrigin(TEXTURE_SIZE / 2.0f);
     m_shape.setFillColor(sf::Color::Red);
 }
 
 void Player::placeTile(sf::RenderWindow& window, WorldManager& worldManager) noexcept {
-    if (buildMode == BuildModeType::Block || buildMode == BuildModeType::Wall) {
+    if (m_buildMode == BuildModeType::Block || m_buildMode == BuildModeType::Wall) {
         sf::Vector2i mousePos{sf::Mouse::getPosition(window)};
         sf::Vector2f worldPos{window.mapPixelToCoords(mousePos)};
 
@@ -19,7 +19,7 @@ void Player::placeTile(sf::RenderWindow& window, WorldManager& worldManager) noe
         int tileY{static_cast<int>(std::floor(worldPos.y / 32.0f))};
         tileY = static_cast<int>(CHUNK_H) - 1 - tileY;
 
-        if (buildMode == BuildModeType::Block) {
+        if (m_buildMode == BuildModeType::Block) {
             worldManager.setGlobalBlock(tileX, tileY, BlockType::Limestone);
         }
         else {
@@ -29,7 +29,7 @@ void Player::placeTile(sf::RenderWindow& window, WorldManager& worldManager) noe
 }
 
 void Player::breakTile(sf::RenderWindow& window, WorldManager& worldManager) noexcept {
-    if (buildMode == BuildModeType::Block || buildMode == BuildModeType::Wall) {
+    if (m_buildMode == BuildModeType::Block || m_buildMode == BuildModeType::Wall) {
         sf::Vector2i mousePos{sf::Mouse::getPosition(window)};
         sf::Vector2f worldPos{window.mapPixelToCoords(mousePos)};
 
@@ -38,7 +38,7 @@ void Player::breakTile(sf::RenderWindow& window, WorldManager& worldManager) noe
         int tileY{static_cast<int>(std::floor(worldPos.y / 32.0f))};
         tileY = static_cast<int>(CHUNK_H) - 1 - tileY;
 
-        if (buildMode == BuildModeType::Block) {
+        if (m_buildMode == BuildModeType::Block) {
             worldManager.setGlobalBlock(tileX, tileY, BlockType::Air);
         }
         else {
@@ -52,10 +52,10 @@ void Player::handleEvent(const sf::Event& event, sf::RenderWindow& window, World
         auto* keyEvent = event.getIf<sf::Event::KeyPressed>();
         
         if (keyEvent->scancode == sf::Keyboard::Scancode::R) {
-            if (buildMode == BuildModeType::Block) {
-                buildMode = BuildModeType::Wall;
-            } else if (buildMode == BuildModeType::Wall) {
-                buildMode = BuildModeType::Block;
+            if (m_buildMode == BuildModeType::Block) {
+                m_buildMode = BuildModeType::Wall;
+            } else if (m_buildMode == BuildModeType::Wall) {
+                m_buildMode = BuildModeType::Block;
             }
         }
         if (keyEvent->scancode == sf::Keyboard::Scancode::LShift) {

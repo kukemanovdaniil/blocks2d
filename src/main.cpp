@@ -16,7 +16,7 @@
 #include "src/worldManager/WorldManager.hpp"
 
 int main() {
-    Window window(Config::defaultWindowSize, Config::fullTitle, Config::fps);
+    Window window(Config::DEFAULT_WINDOW_SIZE, Config::FULL_TITLE, Config::MAX_FPS);
     window.toggleFullscreen();
 
     UiManager ui;
@@ -89,13 +89,13 @@ int main() {
 
         ImGui::SetNextWindowPos(ImVec2(10, 10), ImGuiCond_Always);
         ImGui::Begin("HUD", nullptr, ImGuiWindowFlags_NoDecoration | ImGuiWindowFlags_AlwaysAutoResize | ImGuiWindowFlags_NoSavedSettings | ImGuiWindowFlags_NoFocusOnAppearing | ImGuiWindowFlags_NoNav);
-        ImGui::Text(Config::fullTitle);
+        ImGui::Text(Config::FULL_TITLE);
         ImGui::Separator();
         ImGui::Text("FPS: %u", static_cast<unsigned int>(ImGui::GetIO().Framerate));
         ImGui::Text("Resolution: %u x %u", window.getRenderWindow().getSize().x, window.getRenderWindow().getSize().y);
 
         int positionX = static_cast<int>(player.getPosition().x / TILE_SIZE);
-        int positionY = static_cast<int>(player.getPosition().y / TILE_SIZE);
+        int positionY = static_cast<int>((player.getPosition().y + player.getTextureSize().y / 2.0f) / TILE_SIZE);
         ImGui::Text("Position: %i x %i", positionX, positionY);
         
         ImGui::End();
@@ -106,7 +106,7 @@ int main() {
         // RENDER
         // ==========================================
 
-        camera.updateLerp(player.getVusialPosition() - sf::Vector2f{0.0, 16.0}, deltaTime);
+        camera.updateLerp(player.getVusialPosition() - sf::Vector2f{0.f, 16.0f}, deltaTime);
 
         window.clear(sf::Color{82, 176, 255, 255});
 

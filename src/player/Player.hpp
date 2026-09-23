@@ -18,6 +18,7 @@ public:
     float getSpeed() const noexcept { return m_speed; }
     sf::Vector2f getPosition() const noexcept { return m_position; }
     sf::Vector2f getVusialPosition() const noexcept { return m_visualPosition; }
+    sf::Vector2f getTextureSize() const noexcept { return TEXTURE_SIZE; }
 
 
 
@@ -35,13 +36,11 @@ private:
     sf::Vector2f m_position;
     sf::Vector2f m_visualPosition;
     float m_speed{356.0f};
+    bool m_isSprinting{false};
+
+    BuildModeType m_buildMode = BuildModeType::Block;
 
     mutable sf::RectangleShape m_shape;
-    
-    static constexpr float HEIGHT{55.0f};
-    static constexpr float WIDTH{25.0f};
 
-    BuildModeType buildMode = BuildModeType::Block;
-
-    bool m_isSprinting{false};
+    static constexpr sf::Vector2f TEXTURE_SIZE{25.0f, 55.0f};
 };

@@ -4,8 +4,8 @@
 
 namespace Config {
     // CONSTANS
-    inline constexpr const char* title = "@PROJECT_NAME@";
-    inline constexpr const char* version = "@PROJECT_VERSION@";
+    inline constexpr const char* TITLE = "@PROJECT_NAME@";
+    inline constexpr const char* VERSION = "@PROJECT_VERSION@";
 
-    inline constexpr const char* fullTitle = "@PROJECT_NAME@ @PROJECT_VERSION@";
+    inline constexpr const char* FULL_TITLE = "@PROJECT_NAME@ @PROJECT_VERSION@";
 }
