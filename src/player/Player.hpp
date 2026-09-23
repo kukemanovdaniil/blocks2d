@@ -1,6 +1,6 @@
 #pragma once
 #include <SFML/Graphics.hpp>
-#include "src/player/buildModeType/buildModeType.hpp"
+#include "src/player/buildModeType/BuildModeType.hpp"
 
 class WorldManager;
 

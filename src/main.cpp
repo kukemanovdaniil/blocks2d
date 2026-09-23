@@ -7,7 +7,7 @@
 #include "src/core/tick/TickManager.hpp" 
 
 #include "src/core/window/Window.hpp"
-#include "src/core/ui/uiManager.hpp"
+#include "src/core/ui/UiManager.hpp"
 #include <imgui.h>
 
 #include "src/player/Player.hpp"

@@ -1,4 +1,4 @@
-#include "uiManager.hpp"
+#include "UiManager.hpp"
 
 #include <imgui.h>
 #include <imgui-SFML.h>
