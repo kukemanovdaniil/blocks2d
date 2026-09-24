@@ -1,4 +1,4 @@
 build/
-build_win/
-build_lin/
+build_windows/
+build_linux/
 .vscode/
