@@ -121,7 +121,7 @@ void Chunk::updateGeometry() {
 
                 if (shouldRenderWall) {
                     const auto& wallData = WallRegistry[static_cast<size_t>(currentWallType)];
-                    addTileToMesh(x, y, wallData.m_texIndex, sf::Color(130, 130, 130));
+                    addTileToMesh(x, y, wallData.m_texIndex, sf::Color(175, 175, 175));
                 }
             }
         }

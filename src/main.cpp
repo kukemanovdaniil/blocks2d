@@ -108,7 +108,7 @@ int main() {
 
         camera.updateLerp(player.getVusialPosition() - sf::Vector2f{0.f, 16.0f}, deltaTime);
 
-        window.clear(sf::Color{82, 176, 255, 255});
+        window.clear(sf::Color{138, 235, 241, 255});
 
         camera.setView(window.getRenderWindow());
 

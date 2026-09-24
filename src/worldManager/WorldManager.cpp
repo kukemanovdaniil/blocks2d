@@ -1,6 +1,6 @@
 #include "src/worldManager/WorldManager.hpp"
 #include "src/worldGenerator/default/DefaultGenerator.hpp"
-#include "src/math/random/RandomInRange.hpp"
+#include "src/core/math/Math.hpp"
 #include "src/player/Player.hpp"
 #include <filesystem>
 #include <print>
@@ -10,7 +10,7 @@
 #endif
 
 void WorldManager::createWorld(int size) {
-    DefaultGenerator generator(randomInRange(-999, 999));
+    DefaultGenerator generator(Math::randomInRange(-999, 999));
     for (int i = -size; i < size; ++i) {
         Chunk chunk;
         chunk.setLocalX(i);

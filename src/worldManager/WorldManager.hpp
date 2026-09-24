@@ -6,7 +6,7 @@
 #include <print>
 #include <SFML/OpenGL.hpp>
 #include "src/core/Config.hpp"
-#include "src/math/isChunkVisible/IsChunkVisible.hpp"
+#include "src/core/math/Math.hpp"
 #include <cmath>
 
 class Player;
