@@ -83,6 +83,22 @@ FetchContent_MakeAvailable(fastnoise_lite)
 
 
 # ==========================================
+# FETCH FAST NOISE LITE
+# ==========================================
+FetchContent_Declare(
+    nlohmann_json
+    GIT_REPOSITORY https://github.com/nlohmann/json
+    GIT_TAG v3.11.3
+    UPDATE_DISCONNECTED ON
+)
+
+set(JSON_BuildTests OFF CACHE INTERNAL "")
+set(JSON_Install OFF CACHE INTERNAL "")
+FetchContent_MakeAvailable(nlohmann_json)
+
+
+
+# ==========================================
 # FIND SYSTEM OPENGL
 # ==========================================
 find_package(OpenGL REQUIRED)
@@ -123,8 +139,8 @@ target_link_libraries(Blocks2d PRIVATE
     SFML::Window
     SFML::System
     ImGui-SFML::ImGui-SFML
+    nlohmann_json::nlohmann_json
     OpenGL::GL
-    
 )
 
 if(WIN32 AND CMAKE_CXX_COMPILER_ID STREQUAL "GNU")

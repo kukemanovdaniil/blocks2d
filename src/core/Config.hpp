@@ -7,10 +7,11 @@
 
 namespace Config {
     // CONSTANS
-    inline constexpr unsigned int MAX_FPS = 60;
+    inline constexpr unsigned int MAX_FPS{60};
 
-    inline constexpr sf::Vector2u DEFAULT_WINDOW_SIZE = {1280, 720};
+    inline constexpr sf::Vector2u DEFAULT_WINDOW_SIZE{1280, 720};
 
     // GETTERS
-    inline sf::Vector2u getScreenSize() noexcept { return sf::VideoMode::getDesktopMode().size; }
+    
+    [[nodiscard]] inline sf::Vector2u getScreenSize() noexcept { return sf::VideoMode::getDesktopMode().size; }
 }

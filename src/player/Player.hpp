@@ -15,10 +15,10 @@ public:
 
 
     // GETTERS
-    float getSpeed() const noexcept { return m_speed; }
-    sf::Vector2f getPosition() const noexcept { return m_position; }
-    sf::Vector2f getVusialPosition() const noexcept { return m_visualPosition; }
-    sf::Vector2f getTextureSize() const noexcept { return TEXTURE_SIZE; }
+    [[nodiscard]] float getSpeed() const noexcept { return m_speed; }
+    [[nodiscard]] sf::Vector2f getPosition() const noexcept { return m_position; }
+    [[nodiscard]] sf::Vector2f getVusialPosition() const noexcept { return m_visualPosition; }
+    [[nodiscard]] sf::Vector2f getTextureSize() const noexcept { return TEXTURE_SIZE; }
 
 
 

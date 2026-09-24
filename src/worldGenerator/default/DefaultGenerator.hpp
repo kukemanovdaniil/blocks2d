@@ -27,6 +27,6 @@ private:
     
     void generateCaves(Chunk& chunk, int chunkX);
 
-    static constexpr int BASE_LEVEL = CHUNK_H / 2 - 25;
-    static constexpr int SEA_LEVEL = CHUNK_H / 2;
+    static constexpr int BASE_LEVEL{CHUNK_H / 2 - 25};
+    static constexpr int SEA_LEVEL{CHUNK_H / 2};
 };

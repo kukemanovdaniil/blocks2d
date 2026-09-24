@@ -14,15 +14,21 @@ class Player;
 class WorldManager {
 public:
     void createWorld(int size);
-    void loadAtlasTexture(const char* path);
+    
+    // GETTERS
 
-    BlockType getGlobalBlockInPixels(float globalX, float globalY);
+    [[nodiscard]] WallType getGlobalWall(int blockX, int blockY);
+    [[nodiscard]] BlockType getGlobalBlock(int blockX, int blockY);
+    [[nodiscard]] BlockType getGlobalBlockInPixels(float globalX, float globalY);
 
-    BlockType getGlobalBlock(int blockX, int blockY);
+    // SETTERS
+    
     bool setGlobalBlock(int blockX, int blockY, BlockType type);
-
-    WallType getGlobalWall(int blockX, int blockY);
     bool setGlobalWall(int blockX, int blockY, WallType type);
+
+    // OTHER
+
+    void loadAtlasTexture(const char* path);
 
     void draw(sf::RenderTarget& target, const Player& player, const Camera& camera) const;
 

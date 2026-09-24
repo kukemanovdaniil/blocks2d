@@ -16,23 +16,25 @@ class Chunk {
 public:
     void updateGeometry();
 
-    int getLocalX() noexcept { return m_x; }
-    void setLocalX(int x) noexcept { m_x = x; }
+    // GETTERS
 
-    float getGlobalX() const noexcept;
+    [[nodiscard]] int getLocalX() noexcept { return m_x; }
+    [[nodiscard]] float getGlobalX() const noexcept;
+    [[nodiscard]] WallType getLocalWall(unsigned int x, unsigned int y) noexcept;
+    [[nodiscard]] BlockType getLocalBlock(unsigned int x, unsigned int y) noexcept;
+    
+    // SETTERS
 
-    // FOR BLOCKS
-    BlockType getLocalBlock(unsigned int x, unsigned int y) noexcept;
     void setLocalBlock(unsigned int x, unsigned int y, BlockType type) noexcept;
-
-    // FOR WALLS
-    WallType getLocalWall(unsigned int x, unsigned int y) noexcept;
+    void setLocalX(int x) noexcept { m_x = x; }
     void setLocalWall(unsigned int x, unsigned int y, WallType type) noexcept;
+
+    // OTHER
 
     void draw(sf::RenderTarget& target, const sf::Texture& atlas) const { target.draw(m_mesh, &atlas); }
     
 private:
-    int m_x = 0;
+    int m_x{0};
 
     BlockType blocks[CHUNK_SIZE] = {BlockType::Air};
     WallType walls[CHUNK_SIZE] = {WallType::None};
