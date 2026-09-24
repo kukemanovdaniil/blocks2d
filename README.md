@@ -21,12 +21,12 @@ This is my pet project to create a 2D sandbox game. It runs on its own custom en
 # Build
 ### Windows
 ```bash
-cmake -B build_win_release -DCMAKE_TOOLCHAIN_FILE=win64-toolchain.cmake -DCMAKE_BUILD_TYPE=Release
-cmake --build build_win_release -j4
+cmake -B build_win -DCMAKE_TOOLCHAIN_FILE=win64-toolchain.cmake -DCMAKE_BUILD_TYPE=Release
+cmake --build build_win -j$(nproc)
 ```
 
 ### Linux
 ```bash
 cmake -B build_linux -DCMAKE_BUILD_TYPE=Release
-cmake --build build_linux -j\$(nproc)
+cmake --build build_linux -j$(nproc)
 ```
