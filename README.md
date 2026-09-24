@@ -27,6 +27,6 @@ cmake --build build_windows -j$(nproc)
 
 ### Linux
 ```bash
-cmake -B build_linux-DCMAKE_BUILD_TYPE=Release
+cmake -B build_linux -DCMAKE_BUILD_TYPE=Release
 cmake --build build_linux -j$(nproc)
 ```
