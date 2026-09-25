@@ -1,7 +1,11 @@
-<p align="left">
-  <img src="https://github.com/kukemanovdaniil/blocks2d/blob/main/res/logos/blocks2dfulllogo.svg" alt="Blocks2d Logo" width="500"/>
+<p align="center">
+  <img src="https://github.com/kukemanovdaniil/blocks2d/blob/main/res/logos/blocks2dfulllogo.svg" alt="Blocks2d Logo" width="700"/>
 </p>
-This is my pet project to create a 2D sandbox game. It runs on its own custom engine written in C++
+
+<h2 align="center">
+  This is my pet project to create a 2D sandbox game. <br/>
+  It runs on its own custom engine written in C++
+</h2>
 
 # Latest releases
 [`download`](https://github.com/kukemanovdaniil/blocks2d/releases/latest)
