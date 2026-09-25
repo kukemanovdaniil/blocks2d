@@ -1,7 +1,8 @@
-#include "src/worldManager/WorldManager.hpp"
-#include "src/worldGenerator/default/DefaultGenerator.hpp"
+#include "WorldManager.hpp"
+
+#include "src/game/worldGenerator/default/DefaultGenerator.hpp"
 #include "src/core/math/Math.hpp"
-#include "src/player/Player.hpp"
+#include "src/game/player/Player.hpp"
 #include <filesystem>
 #include <print>
 

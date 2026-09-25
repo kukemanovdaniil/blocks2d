@@ -1,6 +1,7 @@
+#include "Player.hpp"
+
 #include <SFML/Graphics.hpp>
-#include "src/player/Player.hpp"
-#include "src/worldManager/WorldManager.hpp"
+#include "src/game/worldManager/WorldManager.hpp"
 #include <cmath>
 
 Player::Player() {

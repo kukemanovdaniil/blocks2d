@@ -1,7 +1,8 @@
 #pragma once
+
 #include <SFML/Graphics.hpp>
 #include <vector>
-#include "src/worldManager/tileType/TileType.hpp"
+#include "src/game/worldManager/tileType/TileType.hpp"
 
 constexpr unsigned int CHUNK_W = 32;
 constexpr unsigned int CHUNK_H = 512;
@@ -16,21 +17,24 @@ class Chunk {
 public:
     void updateGeometry();
 
-    // GETTERS
 
+
+    // GETTERS
     [[nodiscard]] int getLocalX() noexcept { return m_x; }
     [[nodiscard]] float getGlobalX() const noexcept;
     [[nodiscard]] WallType getLocalWall(unsigned int x, unsigned int y) noexcept;
     [[nodiscard]] BlockType getLocalBlock(unsigned int x, unsigned int y) noexcept;
     
-    // SETTERS
 
+
+    // SETTERS
     void setLocalBlock(unsigned int x, unsigned int y, BlockType type) noexcept;
     void setLocalX(int x) noexcept { m_x = x; }
     void setLocalWall(unsigned int x, unsigned int y, WallType type) noexcept;
 
-    // OTHER
 
+    
+    // OTHER
     void draw(sf::RenderTarget& target, const sf::Texture& atlas) const { target.draw(m_mesh, &atlas); }
     
 private:

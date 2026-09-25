@@ -3,7 +3,7 @@
 #include "src/core/Config.hpp"
 
 void Window::centerWindow() noexcept {
-    sf::Vector2u screenSize = Config::getScreenSize();
+    sf::Vector2u screenSize = Config::DEFAULT_WINDOW_SIZE;
 
     sf::Vector2i centerPos(
         static_cast<int>((screenSize.x - m_size.x) / 2),

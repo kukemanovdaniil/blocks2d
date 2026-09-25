@@ -10,10 +10,10 @@
 #include "src/core/ui/UiManager.hpp"
 #include <imgui.h>
 
-#include "src/player/Player.hpp"
-#include "src/camera/Camera.hpp"
-#include "src/worldManager/tileData/TileData.hpp"
-#include "src/worldManager/WorldManager.hpp"
+#include "src/game/player/Player.hpp"
+#include "src/game/camera/Camera.hpp"
+#include "src/game/worldManager/tileData/TileData.hpp"
+#include "src/game/worldManager/WorldManager.hpp"
 
 int main() {
     Window window(Config::DEFAULT_WINDOW_SIZE, Config::FULL_TITLE, Config::MAX_FPS);
@@ -36,7 +36,7 @@ int main() {
     worldManager.createWorld(10);
 
     Player player;
-    Camera camera(1.0f, 9.0f, sf::Vector2f(Config::getScreenSize()));
+    Camera camera(1.0f, 9.0f, sf::Vector2f(Config::getCurrentScreenWindow(window.getRenderWindow())));
 
     while (window.isOpen()) {
         tickManager.update();
@@ -47,7 +47,7 @@ int main() {
                 window.close();
             }
             if (event->is<sf::Event::Resized>()) {
-                camera.setBaseSize(sf::Vector2f(Config::getScreenSize()));
+                camera.setBaseSize(sf::Vector2f(Config::getCurrentScreenWindow(window.getRenderWindow())));
             }
 
             ui.handleEvent(window.getRenderWindow(), *event);

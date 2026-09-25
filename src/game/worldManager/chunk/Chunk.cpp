@@ -1,5 +1,6 @@
 #include "Chunk.hpp"
-#include "src/worldManager/tileData/TileData.hpp"
+
+#include "src/game/worldManager/tileData/TileData.hpp"
 
 float Chunk::getGlobalX() const noexcept {
     float globalX{static_cast<float>(m_x * static_cast<int>(CHUNK_W)) * TILE_SIZE};

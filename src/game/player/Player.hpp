@@ -1,12 +1,15 @@
 #pragma once
+
 #include <SFML/Graphics.hpp>
-#include "src/player/buildModeType/BuildModeType.hpp"
+#include "src/game/player/buildModeType/BuildModeType.hpp"
 
 class WorldManager;
 
 class Player {
 public:
     Player();
+
+
 
     // SETTERS
     void setPosition(const sf::Vector2f position) noexcept { m_position = position; }
@@ -31,6 +34,7 @@ public:
 
     void placeTile(sf::RenderWindow& window, WorldManager& worldManager) noexcept;
     void breakTile(sf::RenderWindow& window, WorldManager& worldManager) noexcept;
+
 private:
     sf::Vector2f m_previousPosition;
     sf::Vector2f m_position;

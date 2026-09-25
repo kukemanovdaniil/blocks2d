@@ -1,6 +1,7 @@
 #pragma once 
-#include "src/worldManager/chunk/Chunk.hpp" 
-#include "src/worldManager/WorldManager.hpp"
+
+#include "src/game/worldManager/chunk/Chunk.hpp" 
+#include "src/game/worldManager/WorldManager.hpp"
 #include <FastNoiseLite.h>
 
 class DefaultGenerator {

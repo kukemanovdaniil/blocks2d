@@ -1,6 +1,7 @@
 #include "DefaultGenerator.hpp"
-#include "src/worldManager/tileType/TileType.hpp" 
-#include "src/worldGenerator/default/structure/tree/TreeGenerator.hpp"
+
+#include "src/game/worldManager/tileType/TileType.hpp" 
+#include "src/game/worldGenerator/default/structure/tree/TreeGenerator.hpp"
 #include <cmath>
 #include <print>
 

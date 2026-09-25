@@ -1,6 +1,7 @@
 #pragma once
-#include "src/worldManager/WorldManager.hpp"
-#include "src/worldManager/tileType/TileType.hpp"
+
+#include "src/game/worldManager/WorldManager.hpp"
+#include "src/game/worldManager/tileType/TileType.hpp"
 #include <cstdlib>
 
 

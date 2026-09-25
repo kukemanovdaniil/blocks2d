@@ -1,5 +1,6 @@
 #pragma once
-#include "src/worldManager/tileType/TileType.hpp"
+
+#include "src/game/worldManager/tileType/TileType.hpp"
 #include <array>
 #include <cstddef>
 
