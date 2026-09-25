@@ -54,7 +54,7 @@ To cross-compile for Windows from Linux, you need to install **MinGW** first.
 
 * **Debian**
   ```bash
-  sudo apt update && sudo apt install -y mingw-w64
+  sudo apt install -y mingw-w64
   ```
 * **Arch**
   ```bash
