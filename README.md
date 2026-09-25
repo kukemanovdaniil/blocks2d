@@ -19,26 +19,26 @@
 ### Movement
 | Key / Action | Description |
 | :--- | :--- |
-| **W \| A \| S \| D** | Player Movement |
-| **Left Shift** | Sprint |
+| W \| A \| S \| D | Player Movement |
+| Left Shift | Sprint |
 
 ### Camera
 | Key / Action | Description |
 | :--- | :--- |
-| **Mouse Wheel** | Change Zoom |
+| Mouse Wheel | Change Zoom |
 
 ### Gameplay Action
 | Key / Action | Description |
 | :--- | :--- |
-| **R** | Change Build Mode |
-| **Left Click** | Place Block |
-| **Right Click** | Break Block |
+| R | Change Build Mode |
+| Left Click | Place Block |
+| Right Click | Break Block |
 
 ### Hotkeys
 | Key / Action | Description |
 | :--- | :--- |
-| **F8** | Close Game |
-| **F11** | Toggle Fullscreen |
+| F8 | Close Game |
+| F11 | Toggle Fullscreen |
 
 
 
