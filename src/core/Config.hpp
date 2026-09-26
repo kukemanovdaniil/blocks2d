@@ -16,5 +16,7 @@ namespace Config {
     // CONSTANS
     inline constexpr unsigned int MAX_FPS{60};
     inline constexpr sf::Vector2u DEFAULT_WINDOW_SIZE{1280, 720};
+    
     const sf::Vector2u MIN_WINDOW_SIZE{sf::Vector2u(getScreenSize()) / 3u};
+    const sf::Vector2u MAX_WINDOW_SIZE{sf::Vector2u(getScreenSize())};
 }
