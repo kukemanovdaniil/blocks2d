@@ -5,6 +5,7 @@
 #include <SFML/System/Clock.hpp>
 #include <expected>
 #include <string>
+#include <filesystem>
 
 class UiManager {
 public:
@@ -25,6 +26,8 @@ public:
 private:
     sf::Clock m_deltaClock;
     bool m_isInitialized{false};
+
+    std::string m_iniFilePath; 
 
     void applyCustomTheme() noexcept;
 };

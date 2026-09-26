@@ -19,6 +19,15 @@ std::expected<void, std::string> UiManager::init(sf::RenderWindow& window) {
     }
 
     m_isInitialized = true;
+
+    std::filesystem::path cachePath = "data/cache";
+    
+    std::filesystem::create_directories(cachePath);
+    
+    m_iniFilePath = (cachePath / "imgui.ini").string();
+    
+    ImGuiIO& io = ImGui::GetIO();
+    io.IniFilename = m_iniFilePath.c_str();
     
     applyCustomTheme();
 

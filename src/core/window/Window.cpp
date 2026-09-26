@@ -16,6 +16,7 @@ void Window::centerWindow() noexcept {
 Window::Window(sf::Vector2u size, const char* title, unsigned int fps)
     : m_size(size), m_title(title), m_fps(fps), m_window(sf::VideoMode(size), title) {
     m_window.setFramerateLimit(fps);
+    m_window.setMinimumSize(Config::MIN_WINDOW_SIZE);
     centerWindow();
 }
 
@@ -40,6 +41,7 @@ void Window::toggleFullscreen() noexcept {
             sf::State::Windowed
         );
         m_window.setPosition(m_previousPos);
+        m_window.setMinimumSize(Config::MIN_WINDOW_SIZE);
     }
 
     m_window.setFramerateLimit(m_fps);

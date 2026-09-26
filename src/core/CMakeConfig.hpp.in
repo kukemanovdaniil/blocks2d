@@ -5,7 +5,6 @@
 namespace Config {
 
     // CONSTANS
-    
     inline constexpr const char* TITLE{"@PROJECT_NAME@"};
     inline constexpr const char* VERSION{"@PROJECT_VERSION@"};
 
