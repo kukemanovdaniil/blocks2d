@@ -15,9 +15,15 @@
 #include "src/game/worldManager/tileData/TileData.hpp"
 #include "src/game/worldManager/WorldManager.hpp"
 
+#include "src/core/loaders/textureLoader/TextureLoader.hpp"
+
 int main() {
     Window window(Config::DEFAULT_WINDOW_SIZE, Config::FULL_TITLE, Config::MAX_FPS);
     window.toggleFullscreen();
+
+    TextureLoader textureLoader;
+
+    const sf::Texture& blocksAtlas = textureLoader.get("res/textures/blocksAtlas.png");
 
     UiManager ui;
     if (auto uiInit = ui.init(window.getRenderWindow()); !uiInit) {
@@ -32,7 +38,7 @@ int main() {
     tickManager.restart(); 
 
     WorldManager worldManager;
-    worldManager.loadAtlasTexture("res/textures/blockAtlas.png");
+    worldManager.setAtlasTexture(blocksAtlas);
     worldManager.createWorld(10);
 
     Player player;

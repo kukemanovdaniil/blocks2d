@@ -4,7 +4,6 @@
 #include "src/game/worldManager/chunk/Chunk.hpp"
 #include "src/game/camera/Camera.hpp"
 #include <print>
-#include <SFML/OpenGL.hpp>
 #include "src/core/Config.hpp"
 #include "src/core/math/Math.hpp"
 #include <cmath>
@@ -31,10 +30,10 @@ public:
 
 
     // OTHER
-    void loadAtlasTexture(const char* path);
+    void setAtlasTexture(const sf::Texture& texture) { m_blockAtlas = &texture; }
     void draw(sf::RenderTarget& target, const Player& player, const Camera& camera) const;
 
 private:
-    sf::Texture m_blockAtlas;
+    const sf::Texture* m_blockAtlas = nullptr; 
     std::unordered_map<int, Chunk> m_activeChunks;
 };

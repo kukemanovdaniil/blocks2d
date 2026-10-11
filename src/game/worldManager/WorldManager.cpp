@@ -6,10 +6,6 @@
 #include <filesystem>
 #include <print>
 
-#ifdef _WIN32
-#include <GL/glext.h>
-#endif
-
 void WorldManager::createWorld(int size) {
     DefaultGenerator generator(Math::randomInRange(-999, 999));
     for (int i = -size; i < size; ++i) {
@@ -25,28 +21,6 @@ void WorldManager::createWorld(int size) {
     for (auto& [id, chunk] : m_activeChunks) {
         chunk.updateGeometry();
     }
-}
-
-void WorldManager::loadAtlasTexture(const char* path) {
-    if (!std::filesystem::exists(path)) {
-        std::println("FAILED TEXTURE: atlas not found in the path");
-        return;
-    }
-
-    if (!m_blockAtlas.loadFromFile(path)) {
-        std::println("FAILED TEXTURE: atlas not load");
-        return;
-    }
-
-    m_blockAtlas.setSmooth(false);
-    (void)m_blockAtlas.generateMipmap();
-    
-    sf::Texture::bind(&m_blockAtlas);
-    
-    GLint maxLevel = 4; 
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAX_LEVEL, maxLevel);
-    
-    sf::Texture::bind(nullptr);
 }
 
 BlockType WorldManager::getGlobalBlockInPixels(float globalX, float globalY) {
@@ -134,11 +108,12 @@ void WorldManager::draw(sf::RenderTarget& target, const Player& player, const Ca
     startChunkX -= 1; 
     endChunkX += 1;
 
+    if (!m_blockAtlas) return; 
+
     for (int x = startChunkX; x <= endChunkX; ++x) {
         auto it = m_activeChunks.find(x);
-        
         if (it != m_activeChunks.end()) {
-            it->second.draw(target, m_blockAtlas);
+            it->second.draw(target, *m_blockAtlas); 
         }
     }
 }
