@@ -14,6 +14,7 @@ public:
     // SETTERS
     void setPosition(const sf::Vector2f position) noexcept { m_position = position; }
     void setSpeed(float speed) noexcept { m_speed = speed; }
+    void setAtlasTexture(const sf::Texture& texture) { m_playerAtlas = &texture; }
 
 
 
@@ -21,7 +22,7 @@ public:
     [[nodiscard]] float getSpeed() const noexcept { return m_speed; }
     [[nodiscard]] sf::Vector2f getPosition() const noexcept { return m_position; }
     [[nodiscard]] sf::Vector2f getVusialPosition() const noexcept { return m_visualPosition; }
-    [[nodiscard]] sf::Vector2f getTextureSize() const noexcept { return TEXTURE_SIZE; }
+    [[nodiscard]] sf::Vector2f getSize() const noexcept { return SIZE; }
 
 
 
@@ -44,7 +45,9 @@ private:
 
     BuildModeType m_buildMode = BuildModeType::Block;
 
-    mutable sf::RectangleShape m_shape;
+    sf::VertexArray m_vertices;
 
-    static constexpr sf::Vector2f TEXTURE_SIZE{25.0f, 55.0f};
+    const sf::Texture* m_playerAtlas = nullptr; 
+
+    static constexpr sf::Vector2f SIZE{32.0f, 64.0f};
 };

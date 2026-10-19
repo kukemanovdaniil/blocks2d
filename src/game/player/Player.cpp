@@ -5,9 +5,23 @@
 #include <cmath>
 
 Player::Player() {
-    m_shape.setSize(TEXTURE_SIZE);
-    m_shape.setOrigin(TEXTURE_SIZE / 2.0f);
-    m_shape.setFillColor(sf::Color::Red);
+    m_vertices.setPrimitiveType(sf::PrimitiveType::TriangleStrip);
+    m_vertices.resize(4);
+
+    sf::Vector2f actualSize = SIZE * 2.0f;
+
+    float halfX = actualSize.x / 2.0f;
+    float halfY = actualSize.y / 2.0f;
+
+    m_vertices[0].position = sf::Vector2f(-halfX, -halfY);
+    m_vertices[1].position = sf::Vector2f( halfX, -halfY);
+    m_vertices[2].position = sf::Vector2f(-halfX,  halfY);
+    m_vertices[3].position = sf::Vector2f( halfX,  halfY);
+
+    m_vertices[0].texCoords = sf::Vector2f(0.0f, 0.0f);
+    m_vertices[1].texCoords = sf::Vector2f(SIZE.x, 0.0f);
+    m_vertices[2].texCoords = sf::Vector2f(0.0f, SIZE.y);
+    m_vertices[3].texCoords = sf::Vector2f(SIZE.x, SIZE.y);
 }
 
 void Player::placeTile(sf::RenderWindow& window, WorldManager& worldManager) noexcept {
@@ -107,10 +121,16 @@ void Player::update(float deltaTime) noexcept {
 void Player::interpolate(float interpolationFactor) noexcept {
     m_visualPosition = m_previousPosition + 
         (m_position - m_previousPosition) * interpolationFactor;
-
-    m_shape.setPosition(m_visualPosition); 
 }
 
 void Player::draw(sf::RenderTarget& target) const {
-    target.draw(m_shape);
+    sf::RenderStates states;
+    
+    states.transform.translate(m_visualPosition);
+    
+    if (m_playerAtlas) {
+        states.texture = m_playerAtlas;
+    }
+
+    target.draw(m_vertices, states);
 }

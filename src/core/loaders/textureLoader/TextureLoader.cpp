@@ -1,8 +1,11 @@
 #include "src/core/loaders/textureLoader/TextureLoader.hpp"
 
 #include <SFML/Graphics/Texture.hpp>
+#include <SFML/OpenGL.hpp>
+#include <print>
+#include <string>
 
-const sf::Texture& TextureLoader::get(const char* filepath) {
+const sf::Texture& TextureLoader::get(const std::string& filepath, int maxMipmapLevel) {
     auto it = m_textures.find(filepath);
     if (it != m_textures.end()) {
         return *(it->second);

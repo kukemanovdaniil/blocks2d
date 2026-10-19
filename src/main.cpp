@@ -25,6 +25,9 @@ int main() {
 
     const sf::Texture& blocksAtlas = textureLoader.get("res/textures/blocksAtlas.png");
 
+    const sf::Texture& playerAtlas = textureLoader.get("res/textures/playerAtlas.png");
+    
+
     UiManager ui;
     if (auto uiInit = ui.init(window.getRenderWindow()); !uiInit) {
         std::cerr << "ui error : " << uiInit.error() << std::endl;
@@ -42,6 +45,8 @@ int main() {
     worldManager.createWorld(10);
 
     Player player;
+    player.setAtlasTexture(playerAtlas);
+
     Camera camera(1.0f, 9.0f, sf::Vector2f(Config::getCurrentScreenWindow(window.getRenderWindow())));
 
     while (window.isOpen()) {
@@ -101,7 +106,7 @@ int main() {
         ImGui::Text("Resolution: %u x %u", window.getRenderWindow().getSize().x, window.getRenderWindow().getSize().y);
 
         int positionX = static_cast<int>(player.getPosition().x / TILE_SIZE);
-        int positionY = static_cast<int>((player.getPosition().y + player.getTextureSize().y / 2.0f) / TILE_SIZE);
+        int positionY = static_cast<int>((player.getPosition().y + player.getSize().y / 2.0f) / TILE_SIZE);
         ImGui::Text("Position: %i x %i", positionX, positionY);
         
         ImGui::End();
@@ -112,7 +117,7 @@ int main() {
         // RENDER
         // ==========================================
 
-        camera.updateLerp(player.getVusialPosition() - sf::Vector2f{0.f, 16.0f}, deltaTime);
+        camera.updateLerp(player.getVusialPosition() - player.getSize() / 2.0f, deltaTime);
 
         window.clear(sf::Color{138, 235, 241, 255});
 
