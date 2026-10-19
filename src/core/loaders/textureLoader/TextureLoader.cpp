@@ -5,6 +5,10 @@
 #include <print>
 #include <string>
 
+#ifdef _WIN32
+#include <GL/glext.h>
+#endif
+
 const sf::Texture& TextureLoader::get(const std::string& filepath, int maxMipmapLevel) {
     auto it = m_textures.find(filepath);
     if (it != m_textures.end()) {
