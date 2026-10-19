@@ -1,11 +1,6 @@
-<p align="center">
-  <img src="https://github.com/kukemanovdaniil/blocks2d/blob/main/res/logos/blocks2dfulllogo.svg" alt="Blocks2d Logo" width="700"/>
-</p>
+![](res/logos/blocks2dfulllogo.svg)
 
-<h3 align="center">
-  This is my pet project to create a 2D sandbox game. <br/>
-  It runs on its own custom engine written in C++
-</h3>
+> 2D sandbox game. It runs on its own custom engine written in C++
 
 ---
 
@@ -19,7 +14,7 @@
 ### Movement
 | Key / Action | Description |
 | :--- | :--- |
-| W \| A \| S \| D | Player Movement |
+| W, A, S, D | Player Movement |
 | Left Shift | Sprint |
 
 ### Camera
