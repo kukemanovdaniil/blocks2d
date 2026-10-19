@@ -1,8 +1,10 @@
 ![](res/logos/blocks2dfulllogo.svg)
 
+---
+
 > 2D sandbox game. It runs on its own custom engine written in C++
 
----
+![](res/logos/blocks2dfulllogo.svg)
 
 # Latest releases
 [`download`](https://github.com/kukemanovdaniil/blocks2d/releases/latest)
