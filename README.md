@@ -41,8 +41,8 @@ The project started and continues to thrive as a personal endeavor, driven by tw
   ```
 
 * **From GitHub (Web)**
-  * Click on the green **"Code"** button at the top of this repository webpage.
-  * Select **"Download ZIP"** from the dropdown menu and unpack the archive.
+  * Click on the green **"Code"** button at the top of this repository webpage
+  * Select **"Download ZIP"** from the dropdown menu and unpack the archive
 
 
 
