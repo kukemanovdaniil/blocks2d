@@ -41,11 +41,27 @@
 
 
 
+# Installation
+
+### Binaries
+
+* **[Download Latest Release](https://github.com/kukemanovdaniil/blocks2d/releases/latest)**
+
+---
+
+### Source
+
+```sh
+git clone https://github.com/kukemanovdaniil/blocks2d
+cd blocks2d
+```
+
+
 
 # Build
 
 ### Linux (native)
-```bash
+```sh
 cmake -B build_linux -DCMAKE_BUILD_TYPE=Release
 cmake --build build_linux -j$(nproc)
 ```
@@ -53,7 +69,7 @@ cmake --build build_linux -j$(nproc)
 ---
 
 ### Windows (native)
-```bash
+```sh
 cmake -B build_linux -DCMAKE_BUILD_TYPE=Release
 cmake --build build_linux -j$(nproc)
 ```
@@ -66,20 +82,20 @@ To cross-compile for Windows from Linux, you need to install **MinGW** first
 #### 1. Install MinGW
 
 * **Debian**
-  ```bash
+  ```sh
   sudo apt install -y mingw-w64
   ```
 * **Arch**
-  ```bash
+  ```sh
   sudo pacman -Syu --noconfirm x86_64-w64-mingw32-gcc
   ```
 * **Fedora**
-  ```bash
+  ```sh
   sudo dnf install -y mingw64-gcc mingw64-gcc-c++
   ```
 
 #### 2. Compile
-```bash
+```sh
 cmake -B build_windows -DCMAKE_TOOLCHAIN_FILE=win64-toolchain.cmake -DCMAKE_BUILD_TYPE=Release
 cmake --build build_windows -j$(nproc)
 ```
