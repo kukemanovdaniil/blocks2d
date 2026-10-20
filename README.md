@@ -76,7 +76,7 @@ cmake --build build_linux -j$(nproc)
 
 ---
 
-### cross-compile for Windows (Linux)
+### Cross-compile Windows (Linux)
 To cross-compile for Windows from Linux, you need to install **MinGW** first
 
 #### 1. Install MinGW
