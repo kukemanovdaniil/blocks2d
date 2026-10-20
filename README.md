@@ -70,14 +70,12 @@ cmake --build build_linux -j$(nproc)
 
 ### Windows (native)
 ```sh
-cmake -B build_linux -DCMAKE_BUILD_TYPE=Release
-cmake --build build_linux -j$(nproc)
+none, its placeholder
 ```
 
 ---
 
 ### Cross-compile Windows (Linux)
-To cross-compile for Windows from Linux, you need to install **MinGW** first
 
 #### 1. Install MinGW
 
