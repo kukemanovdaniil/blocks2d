@@ -4,7 +4,9 @@
 
 > 2D sandbox game. It runs on its own custom engine written in C++
 
-![](res/logos/blocks2dfulllogo.svg)
+![](res/screenshots/screenshot1.png)
+![](res/screenshots/screenshot2.png)
+![](res/screenshots/screenshot3.png)
 
 # Latest releases
 [`download`](https://github.com/kukemanovdaniil/blocks2d/releases/latest)
