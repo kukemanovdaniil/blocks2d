@@ -1,10 +1,12 @@
-![](res/logos/blocks2dfulllogo.svg)
+<p align="center">
+  <img src="res/logos/blocks2dfulllogo.svg" width="70%" alt="blocks2d logo">
+</p>
 
 ---
 
 > 2D sandbox game. It runs on its own custom engine written in C++
 
-![](res/screenshots/screenshot2.png)
+
 
 # Latest releases
 [`download`](https://github.com/kukemanovdaniil/blocks2d/releases/latest)
@@ -39,6 +41,18 @@
 
 
 
+---
+
+# Screenshots
+
+<p align="left">
+  <img src="res/screenshots/screenshot1.png" width="90%" />
+  <img src="res/screenshots/screenshot2.png" width="90%" />
+  <img src="res/screenshots/screenshot3.png" width="90%" />
+</p>
+
+
+
 # Installation
 
 ### Binaries
@@ -49,10 +63,15 @@
 
 ### Source
 
-```sh
-git clone https://github.com/kukemanovdaniil/blocks2d
-cd blocks2d
-```
+* **From Git (Terminal)**
+  ```sh
+  git clone https://github.com/kukemanovdaniil/blocks2d
+  cd blocks2d
+  ```
+
+* **From GitHub (Web)**
+  * Click on the green **"Code"** button at the top of this repository webpage.
+  * Select **"Download ZIP"** from the dropdown menu and unpack the archive.
 
 
 
