@@ -8,8 +8,35 @@
 
 
 
-# Latest releases
-[`download`](https://github.com/kukemanovdaniil/blocks2d/releases/latest)
+# About Project
+
+**Blocks2D** is an open-source 2D sandbox game built entirely on a custom, lightweight engine written from scratch in C++
+
+The project started and continues to thrive as a personal endeavor, driven by two core goals
+* **Learning & Experimentation :** Serving as a hands on playground for advanced C++ architecture, engine design, and graphics rendering
+* **Community Asset :** Creating a solid, accessible base game that others can enjoy playing, modding, or using for their own educational and development purposes
+
+
+
+# Installation
+
+### Binaries (Latest Release)
+
+* **[`Download`](https://github.com/kukemanovdaniil/blocks2d/releases/latest)**
+
+---
+
+### Source
+
+* **From Git (Terminal)**
+  ```sh
+  git clone https://github.com/kukemanovdaniil/blocks2d
+  cd blocks2d
+  ```
+
+* **From GitHub (Web)**
+  * Click on the green **"Code"** button at the top of this repository webpage.
+  * Select **"Download ZIP"** from the dropdown menu and unpack the archive.
 
 
 
@@ -41,8 +68,6 @@
 
 
 
----
-
 # Screenshots
 
 <p align="left">
@@ -50,28 +75,6 @@
   <img src="res/screenshots/screenshot2.png" width="90%" />
   <img src="res/screenshots/screenshot3.png" width="90%" />
 </p>
-
-
-
-# Installation
-
-### Binaries
-
-* **[Download Latest Release](https://github.com/kukemanovdaniil/blocks2d/releases/latest)**
-
----
-
-### Source
-
-* **From Git (Terminal)**
-  ```sh
-  git clone https://github.com/kukemanovdaniil/blocks2d
-  cd blocks2d
-  ```
-
-* **From GitHub (Web)**
-  * Click on the green **"Code"** button at the top of this repository webpage.
-  * Select **"Download ZIP"** from the dropdown menu and unpack the archive.
 
 
 
@@ -92,7 +95,7 @@ none, its placeholder
 
 ---
 
-### Cross-compile Windows (Linux)
+### Cross-Compile Windows (Linux)
 
 #### 1. Install MinGW
 
