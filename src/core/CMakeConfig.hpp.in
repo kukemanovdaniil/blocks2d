@@ -1,13 +1,9 @@
 #pragma once 
 
-#include <format>
-
 namespace Config {
-
-    // CONSTANS
+    // CONST
     inline constexpr const char* TITLE{"@PROJECT_NAME@"};
     inline constexpr const char* VERSION{"@PROJECT_VERSION@"};
-    inline constexpr const char* STATUS{"stable"};
 
-    inline const char* FULL_TITLE{"@PROJECT_NAME@ " "@PROJECT_VERSION@ " "stable"};
+    inline const char* FULL_TITLE{"@PROJECT_NAME@ " "@PROJECT_VERSION@"};
 }
