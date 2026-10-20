@@ -83,7 +83,7 @@ FetchContent_MakeAvailable(fastnoise_lite)
 
 
 # ==========================================
-# FETCH FAST NOISE LITE
+# FETCH JSON
 # ==========================================
 FetchContent_Declare(
     nlohmann_json
