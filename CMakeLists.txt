@@ -11,6 +11,9 @@ endif()
 
 
 
+
+
+
 # ==========================================
 # GLOBAL SETTINGS STATIC BUILD
 # ==========================================
@@ -18,9 +21,10 @@ set(BUILD_SHARED_LIBS OFF CACHE BOOL "Build shared libraries" FORCE)
 
 set(SFML_STATIC_LIBRARIES ON CACHE BOOL "Link SFML statically" FORCE)
 
-
-
 include(FetchContent)
+
+
+
 
 
 
@@ -38,6 +42,9 @@ set(SFML_BUILD_DOC OFF CACHE INTERNAL "")
 set(SFML_BUILD_NETWORK OFF CACHE INTERNAL "")
 set(SFML_BUILD_AUDIO OFF CACHE INTERNAL "")
 FetchContent_MakeAvailable(SFML)
+
+
+
 
 
 
@@ -67,6 +74,9 @@ FetchContent_MakeAvailable(imgui-sfml)
 
 
 
+
+
+
 # ==========================================
 # FETCH FAST NOISE LITE
 # ==========================================
@@ -79,6 +89,9 @@ FetchContent_Declare(
 )
 
 FetchContent_MakeAvailable(fastnoise_lite)
+
+
+
 
 
 
@@ -98,10 +111,17 @@ FetchContent_MakeAvailable(nlohmann_json)
 
 
 
+
+
+
 # ==========================================
 # FIND SYSTEM OPENGL
 # ==========================================
+
 find_package(OpenGL REQUIRED)
+
+
+
 
 
 
@@ -131,6 +151,9 @@ target_include_directories(Blocks2d PRIVATE
 
 
 
+
+
+
 # ==========================================
 # LINK LIBRARIES
 # ==========================================
@@ -149,6 +172,9 @@ endif()
 
 
 
+
+
+
 # ==========================================
 # OTHER FLAGS FOR BUILD
 # ==========================================
@@ -164,6 +190,31 @@ elseif(CMAKE_SYSTEM_NAME STREQUAL "Linux")
         "-static-libstdc++"
     )
 endif()
+
+
+
+if(CMAKE_BUILD_TYPE STREQUAL "Release")
+
+    include(CheckIPOSupported)
+    check_ipo_supported(RESULT ipo_supported OUTPUT error)
+    if(ipo_supported)
+        set(CMAKE_INTERPROCEDURAL_OPTIMIZATION TRUE)
+    endif()
+
+    if(CMAKE_CXX_COMPILER_ID MATCHES "GNU|Clang")
+        add_compile_options(-O3) 
+
+        add_compile_options(-march=x86-64-v2) 
+
+        add_compile_options(-funroll-loops)
+
+        add_link_options(-Wl,--strip-all)
+    endif()
+endif()
+
+
+
+
 
 
 
