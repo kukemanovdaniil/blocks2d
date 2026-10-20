@@ -98,16 +98,16 @@ FetchContent_MakeAvailable(fastnoise_lite)
 # ==========================================
 # FETCH JSON
 # ==========================================
-FetchContent_Declare(
-    nlohmann_json
-    GIT_REPOSITORY https://github.com/nlohmann/json
-    GIT_TAG v3.11.3
-    UPDATE_DISCONNECTED ON
-)
+#FetchContent_Declare(
+#    nlohmann_json
+#    GIT_REPOSITORY https://github.com/nlohmann/json
+#    GIT_TAG v3.11.3
+#    UPDATE_DISCONNECTED ON
+#)
 
-set(JSON_BuildTests OFF CACHE INTERNAL "")
-set(JSON_Install OFF CACHE INTERNAL "")
-FetchContent_MakeAvailable(nlohmann_json)
+#set(JSON_BuildTests OFF CACHE INTERNAL "")
+#set(JSON_Install OFF CACHE INTERNAL "")
+#FetchContent_MakeAvailable(nlohmann_json)
 
 
 
@@ -162,7 +162,7 @@ target_link_libraries(Blocks2d PRIVATE
     SFML::Window
     SFML::System
     ImGui-SFML::ImGui-SFML
-    nlohmann_json::nlohmann_json
+#    nlohmann_json::nlohmann_json
     OpenGL::GL
 )
 
@@ -193,22 +193,30 @@ endif()
 
 
 
-if(CMAKE_BUILD_TYPE STREQUAL "Release")
 
+
+
+# ==========================================
+# FLAGS FOR BUILDS
+# ==========================================
+if(CMAKE_BUILD_TYPE STREQUAL "Release")
     include(CheckIPOSupported)
     check_ipo_supported(RESULT ipo_supported OUTPUT error)
     if(ipo_supported)
-        set(CMAKE_INTERPROCEDURAL_OPTIMIZATION TRUE)
+        set_target_properties(Blocks2d PROPERTIES INTERPROCEDURAL_OPTIMIZATION TRUE)
     endif()
 
     if(CMAKE_CXX_COMPILER_ID MATCHES "GNU|Clang")
-        add_compile_options(-O3) 
-
-        add_compile_options(-march=x86-64-v2) 
-
-        add_compile_options(-funroll-loops)
-
-        add_link_options(-Wl,--strip-all)
+        target_compile_options(Blocks2d PRIVATE
+            -O3
+            -march=x86-64-v2
+            -funroll-loops
+        )
+        
+        target_link_options(Blocks2d PRIVATE
+        "-Wl,--strip-all"
+        "-Wl,--gc-sections"
+        )
     endif()
 endif()
 

@@ -26,8 +26,10 @@ const sf::Texture& TextureLoader::get(const std::string& filepath, int maxMipmap
     if (m_generateMipmaps) {
         if (texture->generateMipmap()) {
             std::println("[TEXTURE LOADER] Mipmaps generated for: {}", filepath);
+
+            int actualLevel = (maxMipmapLevel == -1) ? m_maxMipmapLevel : maxMipmapLevel;
             
-            if (m_maxMipmapLevel > 0) {
+            if (actualLevel > 0) {
                 sf::Texture::bind(texture.get());
                 
                 glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAX_LEVEL, m_maxMipmapLevel);
