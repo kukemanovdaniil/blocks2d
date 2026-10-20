@@ -88,13 +88,6 @@ cmake --build build_linux -j$(nproc)
 
 ---
 
-### Windows (native)
-```sh
-none, its placeholder
-```
-
----
-
 ### Cross-Compile Windows (Linux)
 
 #### 1. Install MinGW
