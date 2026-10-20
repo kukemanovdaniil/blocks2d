@@ -118,3 +118,34 @@ cmake -B build_windows -DCMAKE_TOOLCHAIN_FILE=win64-toolchain.cmake -DCMAKE_BUIL
 cmake --build build_windows -j$(nproc)
 ```
 
+---
+
+### Windows (native)
+```sh
+none, its placeholder
+```
+
+---
+
+### Cross-Compile Linux (Windows)
+
+#### 1. Install MinGW
+
+* **Debian**
+  ```sh
+  sudo apt install -y mingw-w64
+  ```
+* **Arch**
+  ```sh
+  sudo pacman -Syu --noconfirm x86_64-w64-mingw32-gcc
+  ```
+* **Fedora**
+  ```sh
+  sudo dnf install -y mingw64-gcc mingw64-gcc-c++
+  ```
+
+#### 2. Compile
+```sh
+cmake -B build_windows -DCMAKE_TOOLCHAIN_FILE=win64-toolchain.cmake -DCMAKE_BUILD_TYPE=Release
+cmake --build build_windows -j$(nproc)
+```
