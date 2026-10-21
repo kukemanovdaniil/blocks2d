@@ -61,7 +61,7 @@ void Chunk::updateGeometry() {
     m_mesh.resize(totalTilesToRender * 6);
     
     unsigned int vertexCount = 0;
-    constexpr int TEX_SIZE = 16;
+    constexpr int TEX_SIZE = 256;
 
     auto addTileToMesh = [&](unsigned int x, unsigned int y, unsigned int texIndex, sf::Color color) {
         float posX0 = getGlobalX() + x * TILE_SIZE;

@@ -19,9 +19,9 @@ Player::Player() {
     m_vertices[3].position = sf::Vector2f( halfX,  halfY);
 
     m_vertices[0].texCoords = sf::Vector2f(0.0f, 0.0f);
-    m_vertices[1].texCoords = sf::Vector2f(SIZE.x, 0.0f);
-    m_vertices[2].texCoords = sf::Vector2f(0.0f, SIZE.y);
-    m_vertices[3].texCoords = sf::Vector2f(SIZE.x, SIZE.y);
+    m_vertices[1].texCoords = sf::Vector2f(256.f, 0.0f);
+    m_vertices[2].texCoords = sf::Vector2f(0.0f, 512.f);
+    m_vertices[3].texCoords = sf::Vector2f(256.f, 512.f);
 }
 
 void Player::placeTile(sf::RenderWindow& window, WorldManager& worldManager) noexcept {
