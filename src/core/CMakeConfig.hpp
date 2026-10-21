@@ -1,7 +1,7 @@
 #pragma once 
 
 namespace Config {
-    // CONST
+    // CONSTANS
     inline constexpr const char* TITLE{"blocks2d"};
     inline constexpr const char* VERSION{"0.1.21"};
 

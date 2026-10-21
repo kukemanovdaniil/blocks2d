@@ -31,5 +31,5 @@ private:
 
     bool m_isSmooth{false};
     bool m_generateMipmaps{true};
-    int m_maxMipmapLevel{16};
+    int m_maxMipmapLevel{4};
 };
