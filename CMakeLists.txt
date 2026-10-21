@@ -211,6 +211,9 @@ if(CMAKE_BUILD_TYPE STREQUAL "Release")
             -O3
             -march=x86-64-v2
             -funroll-loops
+
+            -ffunction-sections
+            -fdata-sections
         )
         
         target_link_options(Blocks2d PRIVATE
