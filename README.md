@@ -83,9 +83,9 @@ The project started and continues to thrive as a personal endeavor, driven by tw
 # Screenshots
 
 <p align="left">
-  <img src="res/screenshots/screenshot1.png" width="90%" />
-  <img src="res/screenshots/screenshot2.png" width="90%" />
-  <img src="res/screenshots/screenshot3.png" width="90%" />
+  <img src="https://github.com/user-attachments/assets/9e286f6b-b6f8-4a4b-a2cb-66e15f524a92" width="90%" />
+  <img src="https://github.com/user-attachments/assets/4e99b83f-3797-4c72-9c18-0151f846f005" width="90%" />
+  <img src="https://github.com/user-attachments/assets/fb40c2f9-862b-4eb7-8475-ffbbb2b3c972" width="90%" />
 </p>
 
 
