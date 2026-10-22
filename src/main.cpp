@@ -117,7 +117,7 @@ int main() {
         // RENDER
         // ==========================================
 
-        camera.updateLerp(player.getVusialPosition() - player.getSize() / 2.0f, deltaTime);
+        camera.updateLerp(player.getVisualPosition(), deltaTime);
 
         window.clear(sf::Color{138, 235, 241, 255});
 

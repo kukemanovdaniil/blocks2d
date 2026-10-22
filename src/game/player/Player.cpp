@@ -5,24 +5,44 @@
 #include <cmath>
 
 Player::Player() {
-    m_vertices.setPrimitiveType(sf::PrimitiveType::TriangleStrip);
-    m_vertices.resize(4);
+    m_mesh.setPrimitiveType(sf::PrimitiveType::Triangles);
+    m_mesh.resize(6);
 
-    sf::Vector2f actualSize = SIZE * 2.0f;
-
+    sf::Vector2f actualSize = SIZE;
     float halfX = actualSize.x / 2.0f;
     float halfY = actualSize.y / 2.0f;
 
-    m_vertices[0].position = sf::Vector2f(-halfX, -halfY);
-    m_vertices[1].position = sf::Vector2f( halfX, -halfY);
-    m_vertices[2].position = sf::Vector2f(-halfX,  halfY);
-    m_vertices[3].position = sf::Vector2f( halfX,  halfY);
+    float posX0 = -halfX;
+    float posX1 =  halfX;
+    float posY0 = -halfY;
+    float posY1 =  halfY;
 
-    m_vertices[0].texCoords = sf::Vector2f(0.0f, 0.0f);
-    m_vertices[1].texCoords = sf::Vector2f(SIZE.x, 0.0f);
-    m_vertices[2].texCoords = sf::Vector2f(0.0f, SIZE.y);
-    m_vertices[3].texCoords = sf::Vector2f(SIZE.x, SIZE.y);
+    float texX0 = 0.0f;
+    float texX1 = TEX_SIZE.x;
+    float texY0 = 0.0f;
+    float texY1 = TEX_SIZE.y;
+
+    m_mesh[0].position = sf::Vector2f(posX0, posY0);
+    m_mesh[0].texCoords = sf::Vector2f(texX0, texY0);
+
+    m_mesh[1].position = sf::Vector2f(posX0, posY1);
+    m_mesh[1].texCoords = sf::Vector2f(texX0, texY1);
+
+    m_mesh[2].position = sf::Vector2f(posX1, posY0);
+    m_mesh[2].texCoords = sf::Vector2f(texX1, texY0);
+
+
+
+    m_mesh[3].position = sf::Vector2f(posX0, posY1);
+    m_mesh[3].texCoords = sf::Vector2f(texX0, texY1);
+
+    m_mesh[4].position = sf::Vector2f(posX1, posY1);
+    m_mesh[4].texCoords = sf::Vector2f(texX1, texY1);
+
+    m_mesh[5].position = sf::Vector2f(posX1, posY0);
+    m_mesh[5].texCoords = sf::Vector2f(texX1, texY0);
 }
+
 
 void Player::placeTile(sf::RenderWindow& window, WorldManager& worldManager) noexcept {
     if (m_buildMode == BuildModeType::Block || m_buildMode == BuildModeType::Wall) {
@@ -132,5 +152,5 @@ void Player::draw(sf::RenderTarget& target) const {
         states.texture = m_playerAtlas;
     }
 
-    target.draw(m_vertices, states);
+    target.draw(m_mesh, states);
 }

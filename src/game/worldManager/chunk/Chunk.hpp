@@ -13,6 +13,8 @@ constexpr unsigned int TILE_SIZE = 32;
 constexpr unsigned int CHUNK_W_PIXELS = CHUNK_W * TILE_SIZE;
 constexpr unsigned int CHUNK_H_PIXELS = CHUNK_H * TILE_SIZE;
 
+constexpr unsigned int TEX_SIZE = 16;
+
 class Chunk {
 public:
     void updateGeometry();

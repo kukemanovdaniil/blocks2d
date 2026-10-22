@@ -21,7 +21,7 @@ public:
     // GETTERS
     [[nodiscard]] float getSpeed() const noexcept { return m_speed; }
     [[nodiscard]] sf::Vector2f getPosition() const noexcept { return m_position; }
-    [[nodiscard]] sf::Vector2f getVusialPosition() const noexcept { return m_visualPosition; }
+    [[nodiscard]] sf::Vector2f getVisualPosition() const noexcept { return m_visualPosition; }
     [[nodiscard]] sf::Vector2f getSize() const noexcept { return SIZE; }
 
 
@@ -45,9 +45,10 @@ private:
 
     BuildModeType m_buildMode = BuildModeType::Block;
 
-    sf::VertexArray m_vertices;
+    sf::VertexArray m_mesh;
 
     const sf::Texture* m_playerAtlas = nullptr; 
 
+    static constexpr sf::Vector2f TEX_SIZE{16.0f, 32.0f};
     static constexpr sf::Vector2f SIZE{32.0f, 64.0f};
 };
