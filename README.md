@@ -72,7 +72,6 @@ The project started and continues to thrive as a personal endeavor, driven by tw
 ### Hotkeys
 | Key / Action | Description |
 | :--- | :--- |
-| F8 | Close Game |
 | F11 | Toggle Fullscreen |
 
 
