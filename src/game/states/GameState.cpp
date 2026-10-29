@@ -22,7 +22,7 @@ void GameState::init(EngineContext& context) {
     initWallData();
 
     m_worldManager.setAtlasTexture(blocksAtlas);
-    m_worldManager.createWorld(10);
+    m_worldManager.createWorld(25);
 
     m_player.setAtlasTexture(playerAtlas);
 
