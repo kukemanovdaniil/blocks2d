@@ -1,60 +1,49 @@
+// StateManager.cpp
 #include "StateManager.hpp"
+#include "State.hpp"
 
-void StateManager::init() {
-    m_running = true;
+StateManager::~StateManager() {
 }
 
-void StateManager::cleanup() {
-    while (!m_states.empty()) {
-        m_states.back()->cleanup();
-        m_states.pop_back();
-    }
-}
-
-void StateManager::changeState(std::unique_ptr<State> newState) {
+void StateManager::changeState(std::unique_ptr<State> newState, EngineContext& context) {
     if (!m_states.empty()) {
-        m_states.back()->cleanup();
+        m_states.back()->cleanup(context);
         m_states.pop_back();
     }
-
     m_states.push_back(std::move(newState));
-    m_states.back()->init();
+    m_states.back()->init(context);
 }
 
-void StateManager::pushState(std::unique_ptr<State> newState) {
+void StateManager::pushState(std::unique_ptr<State> newState, EngineContext& context) {
     if (!m_states.empty()) {
-        m_states.back()->pause();
+        m_states.back()->pause(context);
     }
-
     m_states.push_back(std::move(newState));
-    m_states.back()->init();
+    m_states.back()->init(context);
 }
 
-void StateManager::popState() {
+void StateManager::popState(EngineContext& context) {
     if (!m_states.empty()) {
-        m_states.back()->cleanup();
+        m_states.back()->cleanup(context);
         m_states.pop_back();
     }
-
     if (!m_states.empty()) {
-        m_states.back()->resume();
+        m_states.back()->resume(context);
     }
 }
 
-void StateManager::handleEvents() {
-    if (!m_states.empty()) {
-        m_states.back()->handleEvents(*this);
-    }
+void StateManager::handleEvent(const sf::Event& event, EngineContext& context) {
+    if (!m_states.empty()) m_states.back()->handleEvent(context, event);
 }
 
-void StateManager::update(float dt) {
-    if (!m_states.empty()) {
-        m_states.back()->update(*this, dt);
-    }
+void StateManager::updateTick(float tickTime, EngineContext& context) {
+    if (!m_states.empty()) m_states.back()->updateTick(context, tickTime);
 }
 
-void StateManager::draw() {
-    if (!m_states.empty()) {
-        m_states.back()->draw(*this);
-    }
+void StateManager::updateFrame(float deltaTime, float alpha, EngineContext& context) {
+    if (!m_states.empty()) m_states.back()->updateFrame(context, deltaTime, alpha);
+}
+
+void StateManager::draw(EngineContext& context) {
+    if (!m_states.empty()) m_states.back()->draw(context);
 }

@@ -1,31 +1,27 @@
 #pragma once
-
 #include <vector>
 #include <memory>
-#include "State.hpp"
+#include <SFML/Graphics.hpp>
+
+class State;
+struct EngineContext;
 
 class StateManager {
 public:
     StateManager() = default;
     ~StateManager();
 
-    void init();
-    void cleanup();
-    
-    void changeState(std::unique_ptr<State> newState);
-    
-    void pushState(std::unique_ptr<State> newState);
-    
-    void popState();
+    void changeState(std::unique_ptr<State> newState, EngineContext& context);
+    void pushState(std::unique_ptr<State> newState, EngineContext& context);
+    void popState(EngineContext& context);
 
-    void handleEvents();
-    void update(float dt);
-    void draw();
+    void handleEvent(const sf::Event& event, EngineContext& context);
+    void updateTick(float tickTime, EngineContext& context);
+    void updateFrame(float deltaTime, float alpha, EngineContext& context);
+    void draw(EngineContext& context);
 
-    bool running() const { return m_running; }
-    void quit() { m_running = false; }
+    bool isEmpty() const { return m_states.empty(); }
 
 private:
     std::vector<std::unique_ptr<State>> m_states;
-    bool m_running = true;
 };
