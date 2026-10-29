@@ -1,5 +1,5 @@
-<p align="center">
-  <img src="res/logos/blocks2dfulllogo.svg" width="70%" alt="blocks2d logo">
+</p>
+  <img alt="blocks2dfulllogo" src="https://github.com/user-attachments/assets/a9f68815-0c72-445f-909b-f4184e3d6106" /><p align="center">
 </p>
 
 ---
