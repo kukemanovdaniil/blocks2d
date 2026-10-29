@@ -51,7 +51,6 @@ void Engine::processEvents() {
         }
 
         if (const auto* keyPressedEvent = event->getIf<sf::Event::KeyPressed>()) {
-            if (keyPressedEvent->code == sf::Keyboard::Key::F8) m_window.close();
             if (keyPressedEvent->code == sf::Keyboard::Key::F11) m_window.toggleFullscreen();
         }
 
