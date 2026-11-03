@@ -54,7 +54,8 @@ The project started and continues to thrive as a personal endeavor, driven by tw
 ### Movement
 | Key / Action | Description |
 | :--- | :--- |
-| W, A, S, D | Player Movement |
+| A, D | Movement |
+| Space | Jump |
 | Left Shift | Sprint |
 
 ### Camera
