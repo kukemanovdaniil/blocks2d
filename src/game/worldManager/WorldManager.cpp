@@ -3,6 +3,7 @@
 #include "src/game/worldGenerator/default/DefaultGenerator.hpp"
 #include "src/core/math/Math.hpp"
 #include "src/game/player/Player.hpp"
+#include "src/game/worldManager/tileData/TileData.hpp"
 #include <filesystem>
 #include <print>
 
@@ -22,29 +23,6 @@ void WorldManager::createWorld(int size) {
         chunk.updateGeometry();
     }
 }
-
-BlockType WorldManager::getGlobalBlockInPixels(float globalX, float globalY) {
-    if (globalY < 0.0f || globalY >= CHUNK_H_PIXELS) return BlockType::Air;
-    
-    int chunkX = static_cast<int>(std::floor(globalX / CHUNK_W_PIXELS));
-        
-    auto it = m_activeChunks.find(chunkX);
-    if (it == m_activeChunks.end()) {
-        return BlockType::Air;
-    }
-
-    Chunk& chunk = it->second;
-        
-    float localPixelX = globalX - chunk.getGlobalX();
-    unsigned int tileX = static_cast<unsigned int>(localPixelX / TILE_SIZE);
-    
-    float localPixelY = CHUNK_H_PIXELS - globalY;
-    unsigned int tileY = static_cast<unsigned int>(localPixelY / TILE_SIZE);
-
-    if (tileY >= CHUNK_H) tileY = CHUNK_H - 1;
-
-    return chunk.getLocalBlock(tileX, tileY);
-} 
 
 BlockType WorldManager::getGlobalBlock(int blockX, int blockY) {
     if (blockY < 0 || blockY >= static_cast<int>(CHUNK_H)) return BlockType::Air;
@@ -93,6 +71,45 @@ bool WorldManager::setGlobalWall(int blockX, int blockY, WallType type) {
     it->second.updateGeometry();
     return true;
 }
+
+
+
+Chunk* WorldManager::getChunkByCoordinate(int chunkX) {
+    auto it = m_activeChunks.find(chunkX);
+    if (it != m_activeChunks.end()) {
+        return &(it->second);
+    }
+    return nullptr;
+}
+
+
+
+
+bool WorldManager::isSolidBlockAt(float globalX, float globalY) {
+    if (globalY < 0.0f || globalY >= CHUNK_H_PIXELS) return false;
+    
+    int chunkX = static_cast<int>(std::floor(globalX / CHUNK_W_PIXELS));
+    auto it = m_activeChunks.find(chunkX);
+    if (it == m_activeChunks.end()) return false;
+
+    Chunk& chunk = it->second;
+        
+    float localPixelX = globalX - chunk.getGlobalX();
+    unsigned int tileX = static_cast<unsigned int>(localPixelX / TILE_SIZE);
+    
+    unsigned int tileY = static_cast<unsigned int>(globalY / TILE_SIZE);
+
+    if (tileY >= CHUNK_H) tileY = CHUNK_H - 1;
+    if (tileX >= CHUNK_W) tileX = CHUNK_W - 1;
+
+    BlockType block = chunk.getLocalBlock(tileX, tileY);
+    if (block == BlockType::Air) return false;
+
+    return BlockRegistry[static_cast<size_t>(block)].m_is_solid;
+}
+
+
+
 
 
 

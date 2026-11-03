@@ -21,29 +21,32 @@ void DefaultGenerator::generate(Chunk& chunk, int chunkX) {
     generateLandscape(chunk, chunkX);
     generateVegetation(chunk, chunkX);
     generateCaves(chunk, chunkX);
-
-    chunk.updateGeometry();
 }
 
 void DefaultGenerator::generateLandscape(Chunk& chunk, int chunkX) {
     for (unsigned int x = 0; x < CHUNK_W; ++x) {
         const int globalX = chunkX * static_cast<int>(CHUNK_W) + static_cast<int>(x);
-        const unsigned int surfaceY = calculateSurfaceY(globalX);
         
-        for (unsigned int y = 0; y <= surfaceY; ++y) {
-            if (y <= 3) {
+        const unsigned int surfaceY = calculateSurfaceY(globalX);
+        const unsigned int bottomY = CHUNK_H - 1;
+        
+        for (unsigned int y = surfaceY; y <= bottomY; ++y) {
+            unsigned int distToBottom = bottomY - y;
+            unsigned int depth = y - surfaceY;
+
+            if (distToBottom <= 3) {
                 chunk.setLocalBlock(x, y, BlockType::Basalt);
                 chunk.setLocalWall(x, y, WallType::Basalt);
             }
-            else if (y < surfaceY / 3) {
+            else if (distToBottom < (bottomY - surfaceY) / 3) {
                 chunk.setLocalBlock(x, y, BlockType::Andesite);
                 chunk.setLocalWall(x, y, WallType::Andesite);
             }
-            else if (y < (surfaceY - 9)) {
+            else if (depth > 9) {
                 chunk.setLocalBlock(x, y, BlockType::Limestone);    
                 chunk.setLocalWall(x, y, WallType::Limestone);  
             }
-            else if (y < (surfaceY - 7)) {
+            else if (depth > 7) {
                 chunk.setLocalBlock(x, y, BlockType::Gravel);
                 chunk.setLocalWall(x, y, WallType::Gravel);
             }
@@ -59,13 +62,16 @@ void DefaultGenerator::generateVegetation(Chunk& chunk, int chunkX) {
     for (unsigned int x = 0; x < CHUNK_W; ++x) {
         int globalX = chunkX * CHUNK_W + x;
         unsigned int surfaceY = calculateSurfaceY(globalX);
-        
-        for (unsigned int y = 0; y <= surfaceY; ++y) {
+        const unsigned int bottomY = CHUNK_H - 1;
+
+        for (unsigned int y = surfaceY; y <= bottomY; ++y) {
+            unsigned int depth = y - surfaceY;
+
             if (y == surfaceY) {
                 chunk.setLocalBlock(x, y, BlockType::Grass);
                 chunk.setLocalWall(x, y, WallType::Grass);
             }
-            else if (y < surfaceY && y > (surfaceY - 5)) {
+            else if (depth > 0 && depth < 5) {
                 chunk.setLocalBlock(x, y, BlockType::Loam);
                 chunk.setLocalWall(x, y, WallType::Loam);
             }
@@ -77,8 +83,9 @@ void DefaultGenerator::generateCaves(Chunk& chunk, int chunkX) {
     for (unsigned int x = 0; x < CHUNK_W; ++x) {         
         const int globalX = chunkX * static_cast<int>(CHUNK_W) + static_cast<int>(x);         
         const int surfaceY = static_cast<int>(calculateSurfaceY(globalX));          
+        const int bottomY = static_cast<int>(CHUNK_H) - 1;
 
-        for (int y = 4; y < surfaceY + 1; ++y) {             
+        for (int y = surfaceY + 1; y < bottomY - 3; ++y) {             
             const float caveNoiseValue = calculateCaveValue(globalX, y);             
 
             if (std::abs(caveNoiseValue) < 0.08f) {                 
@@ -87,11 +94,6 @@ void DefaultGenerator::generateCaves(Chunk& chunk, int chunkX) {
         }     
     } 
 }
-
-
-
-
-
 
 void DefaultGenerator::generateTrees(WorldManager& world, int size) {
     for (int i = -size; i < size; ++i) {

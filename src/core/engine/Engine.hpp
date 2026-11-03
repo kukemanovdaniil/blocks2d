@@ -5,6 +5,7 @@
 #include "src/core/managers/ui/UiManager.hpp"
 #include "src/core/managers/tick/TickManager.hpp"
 #include "src/core/managers/state/StateManager.hpp"
+#include "src/core/managers/physic/PhysicManager.hpp"
 #include "src/core/engine/EngineContext.hpp"
 
 #include <memory>
@@ -24,6 +25,7 @@ private:
     UiManager m_ui;
     StateManager m_stateManager;
     TickManager m_tickManager;
+    PhysicManager m_physicManager;
 
     std::unique_ptr<EngineContext> m_context;
 

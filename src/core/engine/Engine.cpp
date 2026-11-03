@@ -19,7 +19,8 @@ bool Engine::init() {
         m_window,
         m_textureLoader,
         m_ui,
-        m_stateManager
+        m_stateManager,
+        m_physicManager
     );
 
     m_stateManager.changeState(std::make_unique<MenuState>(), *m_context);

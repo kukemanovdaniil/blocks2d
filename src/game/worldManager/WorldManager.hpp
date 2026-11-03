@@ -19,7 +19,6 @@ public:
     // GETTERS
     [[nodiscard]] WallType getGlobalWall(int blockX, int blockY);
     [[nodiscard]] BlockType getGlobalBlock(int blockX, int blockY);
-    [[nodiscard]] BlockType getGlobalBlockInPixels(float globalX, float globalY);
 
 
 
@@ -30,6 +29,8 @@ public:
 
 
     // OTHER
+    Chunk* getChunkByCoordinate(int chunkX);
+    bool isSolidBlockAt(float globalX, float globalY);
     void setAtlasTexture(const sf::Texture& texture) { m_blockAtlas = &texture; }
     void draw(sf::RenderTarget& target, const Player& player, const Camera& camera) const;
 

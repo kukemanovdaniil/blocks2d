@@ -66,8 +66,7 @@ void Chunk::updateGeometry() {
         float posX0 = getGlobalX() + x * TILE_SIZE;
         float posX1 = posX0 + TILE_SIZE;
         
-        float flippedY = static_cast<float>(CHUNK_H - 1 - y); 
-        float posY0 = flippedY * TILE_SIZE;
+        float posY0 = static_cast<float>(y * TILE_SIZE);
         float posY1 = posY0 + TILE_SIZE;
 
         float texX0 = static_cast<float>(texIndex * TEX_SIZE);

@@ -4,6 +4,7 @@
 #include <imgui.h>
 
 #include "src/core/managers/state/StateManager.hpp"
+#include "src/core/managers/physic/PhysicManager.hpp"
 #include "src/core/window/Window.hpp"
 #include "src/core/managers/ui/UiManager.hpp"
 #include "src/core/loaders/textureLoader/TextureLoader.hpp"
@@ -31,6 +32,8 @@ void GameState::init(EngineContext& context) {
         9.0f, 
         sf::Vector2f(Config::getCurrentScreenWindow(targetWindow))
     );
+
+    context.physicManager.addCollider(&m_player);
 }
 
 void GameState::cleanup(EngineContext& context) {
@@ -61,11 +64,12 @@ void GameState::handleEvent(EngineContext& context, const sf::Event& event) {
 
 void GameState::updateTick(EngineContext& context, float tickTime) {
     m_player.update(tickTime);
+    context.physicManager.update(tickTime, m_worldManager, TILE_SIZE); 
 }
 
 void GameState::updateFrame(EngineContext& context, float deltaTime, float alpha) {
     m_player.interpolate(alpha);
-    m_camera->updateLerp(m_player.getVisualPosition(), deltaTime);
+    m_camera->updateLerp(m_player.getVisualPosition() + (m_player.getSize() / 2.0f), deltaTime);
 }
 
 void GameState::draw(EngineContext& context) {
@@ -92,16 +96,15 @@ void GameState::draw(EngineContext& context) {
     ImGui::SetNextWindowPos(ImVec2(10, 10), ImGuiCond_Always);
     ImGui::Begin("HUD", nullptr, ImGuiWindowFlags_NoDecoration | ImGuiWindowFlags_AlwaysAutoResize | ImGuiWindowFlags_NoSavedSettings | ImGuiWindowFlags_NoFocusOnAppearing | ImGuiWindowFlags_NoNav);
     
-    ImGui::Text(Config::FULL_TITLE);
-    ImGui::Separator();
+    ImGui::Text("Version: %s", Config::VERSION);
     ImGui::Text("FPS: %u", static_cast<unsigned int>(ImGui::GetIO().Framerate));
     ImGui::Text("Resolution: %u x %u", targetWindow.getSize().x, targetWindow.getSize().y);
 
-    int positionX = static_cast<int>(m_player.getPosition().x / TILE_SIZE);
-    int positionY = static_cast<int>((m_player.getPosition().y + m_player.getSize().y / 2.0f) / TILE_SIZE);
+    int positionX = static_cast<int>(m_player.getPosition().x);
+    int positionY = static_cast<int>(m_player.getPosition().y);
     ImGui::Text("Position: %i x %i", positionX, positionY);
     
     ImGui::End();
-
+    
     ui.endFrame(targetWindow);
 }
