@@ -100,8 +100,8 @@ void GameState::draw(EngineContext& context) {
     ImGui::Text("FPS: %u", static_cast<unsigned int>(ImGui::GetIO().Framerate));
     ImGui::Text("Resolution: %u x %u", targetWindow.getSize().x, targetWindow.getSize().y);
 
-    int positionX = static_cast<int>(m_player.getPosition().x);
-    int positionY = static_cast<int>(m_player.getPosition().y);
+    int positionX = static_cast<int>(m_player.getPosition().x / TILE_SIZE);
+    int positionY = static_cast<int>(m_player.getPosition().y / TILE_SIZE);
     ImGui::Text("Position: %i x %i", positionX, positionY);
     
     ImGui::End();
