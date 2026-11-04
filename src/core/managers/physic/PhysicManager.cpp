@@ -1,90 +1,74 @@
 #include "src/core/managers/physic/PhysicManager.hpp"
-#include "src/core/managers/physic/AdvancedSweptPhysics.hpp"
+#include "src/game/worldManager/WorldManager.hpp"
 #include <cmath>
 
-#include "src/game/worldManager/WorldManager.hpp"
+PhysicManager::PhysicManager() {
+    b2WorldDef worldDef = b2DefaultWorldDef();
+    
+    worldDef.gravity = b2Vec2{ 0.0f, 26.0f }; 
+    
+    m_worldId = b2CreateWorld(&worldDef);
+}
 
-#include "src/core/managers/physic/PhysicManager.hpp"
-#include "src/core/managers/physic/AdvancedSweptPhysics.hpp"
-#include <cmath>
-#include <algorithm>
+PhysicManager::~PhysicManager() {
+    if (b2World_IsValid(m_worldId)) {
+        b2DestroyWorld(m_worldId);
+    }
+}
 
-#include "src/game/worldManager/WorldManager.hpp"
+void PhysicManager::addCollider(Collider* collider) noexcept {
+    if (collider) m_dynamicColliders.push_back(collider);
+}
+
+void PhysicManager::removeCollider(Collider* collider) noexcept {
+    std::erase(m_dynamicColliders, collider);
+}
+
+void PhysicManager::clear() noexcept {
+    m_dynamicColliders.clear();
+}
 
 void PhysicManager::update(float dt, WorldManager& worldManager, unsigned int tileSize) noexcept {
     const float fTileSize = static_cast<float>(tileSize);
-    m_blockFlyweight.size = sf::Vector2f(fTileSize, fTileSize);
+
+    for (b2BodyId blockId : m_temporaryStaticBlocks) {
+        if (b2Body_IsValid(blockId)) b2DestroyBody(blockId);
+    }
+    m_temporaryStaticBlocks.clear();
 
     for (auto* moving : m_dynamicColliders) {
         if (moving->getType() == ColliderType::StaticBlock) continue;
 
-        sf::Vector2f velocity = moving->getVelocity();
-        if (velocity.x == 0.0f && velocity.y == 0.0f) continue;
+        sf::Vector2f pos = moving->getPosition();
+        sf::Vector2f size = moving->getSize();
 
-        float timeRemaining = 1.0f;
-        
-        for (int iteration = 0; iteration < 3; ++iteration) {
-            if (timeRemaining <= 0.0f) break;
+        int startX = static_cast<int>(std::floor((pos.x - fTileSize * 3.f) / fTileSize));
+        int endX   = static_cast<int>(std::floor((pos.x + size.x + fTileSize * 3.f) / fTileSize));
+        int startY = static_cast<int>(std::floor((pos.y - fTileSize * 3.f) / fTileSize));
+        int endY   = static_cast<int>(std::floor((pos.y + size.y + fTileSize * 3.f) / fTileSize));
 
-            sf::Vector2f deltaMove = velocity * (dt * timeRemaining);
-            if (deltaMove.x == 0.0f && deltaMove.y == 0.0f) break;
+        for (int x = startX; x <= endX; ++x) {
+            for (int y = startY; y <= endY; ++y) {
+                float blockX = static_cast<float>(x * static_cast<int>(tileSize));
+                float blockY = static_cast<float>(y * static_cast<int>(tileSize));
 
-            sf::Vector2f pos = moving->getPosition();
-            sf::Vector2f size = moving->getSize();
+                if (worldManager.isSolidBlockAt(blockX, blockY)) {
+                    b2BodyDef bodyDef = b2DefaultBodyDef();
+                    bodyDef.type = b2_staticBody;
+                    bodyDef.position = b2Vec2{ (blockX + fTileSize/2.0f) / 32.0f, (blockY + fTileSize/2.0f) / 32.0f };
 
-            int startX = static_cast<int>(std::floor(std::min(pos.x, pos.x + deltaMove.x) / fTileSize)) - 1;
-            int endX = static_cast<int>(std::floor(std::max(pos.x + size.x, pos.x + size.x + deltaMove.x) / fTileSize)) + 1;
-            int startY = static_cast<int>(std::floor(std::min(pos.y, pos.y + deltaMove.y) / fTileSize)) - 1;
-            int endY = static_cast<int>(std::floor(std::max(pos.y + size.y, pos.y + size.y + deltaMove.y) / fTileSize)) + 1;
+                    b2BodyId blockId = b2CreateBody(m_worldId, &bodyDef);
 
-            RaycastHit closestBlockHit;
-            closestBlockHit.hitTime = 1.0f; 
+                    b2Polygon box = b2MakeBox(fTileSize / 64.0f, fTileSize / 64.0f);
+                    b2ShapeDef shapeDef = b2DefaultShapeDef();
+                    
+                    b2CreatePolygonShape(blockId, &shapeDef, &box);
 
-            for (int x = startX; x <= endX; ++x) {
-                for (int y = startY; y <= endY; ++y) {
-                    float blockX = static_cast<float>(x * tileSize);
-                    float blockY = static_cast<float>(y * tileSize);
-
-                    if (worldManager.isSolidBlockAt(blockX, blockY)) { 
-                        m_blockFlyweight.position = sf::Vector2f(blockX, blockY);
-
-                        RaycastHit hit = AdvancedSweptPhysics::checkCollision(*moving, m_blockFlyweight, dt * timeRemaining);
-                        
-                        if (hit.collided) {
-                            if (std::abs(hit.normal.x) > 0.0f) {
-                                float blockAboveY = blockY - fTileSize;
-                                
-                                if (!worldManager.isSolidBlockAt(blockX, blockAboveY)) {
-                                    float playerBottom = pos.y + size.y;
-                                    
-                                    if (playerBottom <= blockY + 6.0f) {
-                                        continue;
-                                    }
-                                }
-                            }
-                            if (hit.hitTime < closestBlockHit.hitTime) {
-                                closestBlockHit = hit;
-                            }
-                        }
-                    }
+                    m_temporaryStaticBlocks.push_back(blockId);
                 }
-            }
-
-            if (closestBlockHit.collided) {
-                float safeHitTime = std::max(0.0f, closestBlockHit.hitTime - 0.001f);
-                moving->move(velocity * (dt * timeRemaining * safeHitTime));
-                
-                moving->onCollision(m_blockFlyweight, closestBlockHit.normal);
-                
-                if (std::abs(closestBlockHit.normal.x) > 0.0f) velocity.x = 0.0f;
-                if (std::abs(closestBlockHit.normal.y) > 0.0f) velocity.y = 0.0f;
-
-                timeRemaining -= closestBlockHit.hitTime;
-            } 
-            else {
-                moving->move(deltaMove);
-                break;
             }
         }
     }
+
+    b2World_Step(m_worldId, dt, 4);
 }

@@ -5,7 +5,7 @@ int main() {
     Engine engine;
     
     if (!engine.init()) {
-        std::cerr << "ENGINE: fatal error, engine not init" << std::endl;
+        std::cerr << "[ENGINE] Fatal error, engine not init" << std::endl;
         return -1;
     }
 

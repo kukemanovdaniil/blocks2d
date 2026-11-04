@@ -70,6 +70,8 @@ void Player::handleEvent(const sf::Event& event, sf::RenderWindow& window, World
 }
 
 void Player::update(float deltaTime) noexcept {
+    savePreviousPosition();
+
     float inputDirX = 0.0f;
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::A)) inputDirX -= 1.0f;
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::D)) inputDirX += 1.0f;
@@ -77,7 +79,7 @@ void Player::update(float deltaTime) noexcept {
     bool wantsToJump = sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::Space);
     float currentMaxSpeed = m_isSprinting ? (m_speed * 1.5f) : m_speed;
 
-    CharacterBody::updatePhysics(deltaTime, inputDirX, wantsToJump, currentMaxSpeed);
+    CharacterBody::updateCharacterPhysics(deltaTime, inputDirX, wantsToJump, currentMaxSpeed);
 }
 
 void Player::interpolate(float interpolationFactor) noexcept {

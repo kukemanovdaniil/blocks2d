@@ -16,6 +16,8 @@ void GameState::init(EngineContext& context) {
     auto& targetWindow = context.window.getRenderWindow();
     auto& loader = context.textureLoader;
 
+    b2WorldId b2World = context.physicManager.getWorldId();
+
     const sf::Texture& blocksAtlas = loader.get("res/textures/blocksAtlas.png");
     const sf::Texture& playerAtlas = loader.get("res/textures/playerAtlas.png");
 
@@ -23,17 +25,18 @@ void GameState::init(EngineContext& context) {
     initWallData();
 
     m_worldManager.setAtlasTexture(blocksAtlas);
-    m_worldManager.createWorld(25);
+    m_worldManager.createWorld(5);
 
     m_player.setAtlasTexture(playerAtlas);
+    m_player.initCharacterPhysics(b2World, sf::Vector2f(200.0f, 100.0f), sf::Vector2f(32.0f, 64.0f));
+
+    context.physicManager.addCollider(&m_player);
 
     m_camera = std::make_unique<Camera>(
         1.0f, 
         9.0f, 
         sf::Vector2f(Config::getCurrentScreenWindow(targetWindow))
     );
-
-    context.physicManager.addCollider(&m_player);
 }
 
 void GameState::cleanup(EngineContext& context) {
@@ -64,7 +67,7 @@ void GameState::handleEvent(EngineContext& context, const sf::Event& event) {
 
 void GameState::updateTick(EngineContext& context, float tickTime) {
     m_player.update(tickTime);
-    context.physicManager.update(tickTime, m_worldManager, TILE_SIZE); 
+    context.physicManager.update(tickTime, m_worldManager, TILE_SIZE);
 }
 
 void GameState::updateFrame(EngineContext& context, float deltaTime, float alpha) {

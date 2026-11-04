@@ -1,4 +1,5 @@
 #pragma once
+#include <box2d/box2d.h>
 #include "src/core/managers/physic/collider/Collider.hpp"
 #include <algorithm>
 #include <cmath>
@@ -6,80 +7,97 @@
 class CharacterBody : public Collider {
 public:
     CharacterBody() = default;
-    virtual ~CharacterBody() override = default;
-
-    [[nodiscard]] sf::Vector2f implPosition() const noexcept override { return m_position; }
-    [[nodiscard]] sf::Vector2f implSize() const noexcept override { return m_size; }
-    [[nodiscard]] sf::Vector2f implVelocity() const noexcept override { return m_velocity; }
-    
-    void move(const sf::Vector2f& delta) noexcept override { m_position += delta; }
-    
-    void onCollision(Collider& /*other*/, const sf::Vector2f& normal) override {
-        // ПОЛ / ПОТОЛОК
-        if (normal.y < 0.0f) {
-            m_onGround = true; 
-            m_velocity.y = 0.0f;
-        }
-        if (normal.y > 0.0f) {
-            m_velocity.y = 0.0f;
-        }
-
-        if (std::abs(normal.x) > 0.0f) {
-            m_velocity.x = 0.0f; 
+    virtual ~CharacterBody() override {
+        if (b2Body_IsValid(m_bodyId)) {
+            b2DestroyBody(m_bodyId);
         }
     }
 
-    void updatePhysics(float dt, float inputDirX, bool wantsToJump, float maxSpeed) noexcept {
-        m_previousPosition = m_position;
+    void initCharacterPhysics(b2WorldId worldId, sf::Vector2f startPos, sf::Vector2f size) noexcept {
+        m_size = size;
 
-        constexpr float ACCEL_AIR = 1800.0f;
-        constexpr float FRICTION_GROUND = 25.0f;
-        constexpr float DRAG_AIR = 0.5f;
-        constexpr float GRAVITY = 1600.0f;      
-        constexpr float MAX_FALL_SPEED = 900.0f;
-        constexpr float JUMP_IMPULSE = -550.0f;
+        b2BodyDef bodyDef = b2DefaultBodyDef();
+        bodyDef.type = b2_dynamicBody;
+        bodyDef.position = b2Vec2{ startPos.x / 32.0f, startPos.y / 32.0f };
+        bodyDef.gravityScale = 2.0f; 
+        bodyDef.linearDamping = 0.5f;
 
-        if (m_onGround) {
-            if (inputDirX != 0.0f) {
-                m_velocity.x = inputDirX * maxSpeed;
-            } else {
-                m_velocity.x -= m_velocity.x * FRICTION_GROUND * dt;
-                if (std::abs(m_velocity.x) < 10.0f) m_velocity.x = 0.0f;
-            }
-        } 
-        else {
-            if (inputDirX != 0.0f) {
-                m_velocity.x += inputDirX * ACCEL_AIR * dt;
-                float maxAirSpeed = maxSpeed * 1.2f; 
-                m_velocity.x = std::clamp(m_velocity.x, -maxAirSpeed, maxAirSpeed);
-            } else {
-                m_velocity.x -= m_velocity.x * DRAG_AIR * dt;
-            }
-        }
+        m_bodyId = b2CreateBody(worldId, &bodyDef);
 
-        if (wantsToJump && m_onGround) {
-            m_velocity.y = JUMP_IMPULSE;
-            m_onGround = false;
-        }
+        b2Polygon box = b2MakeBox(m_size.x / 64.0f, m_size.y / 64.0f);
+        b2ShapeDef shapeDef = b2DefaultShapeDef();
 
-        m_velocity.y += GRAVITY * dt;
-        if (m_velocity.y > MAX_FALL_SPEED) m_velocity.y = MAX_FALL_SPEED;
+        shapeDef.density = 1.0f;
 
-        m_onGround = false; 
+        b2ShapeId shapeId = b2CreatePolygonShape(m_bodyId, &shapeDef, &box);
+        
+        b2CreatePolygonShape(m_bodyId, &shapeDef, &box);
+        b2Shape_SetFriction(shapeId, 0.0f);
     }
 
-    [[nodiscard]] sf::Vector2f getPosition() const noexcept { return m_position; }
+    void updateCharacterPhysics(float dt, float inputDirX, bool wantsToJump, float maxSpeed) noexcept {
+        if (!b2Body_IsValid(m_bodyId)) return;
+
+        b2Vec2 velocity = b2Body_GetLinearVelocity(m_bodyId);
+        bool onGround = checkOnGround(); 
+
+        if (inputDirX != 0.0f) {
+            velocity.x = inputDirX * (maxSpeed / 32.0f);
+        } else {
+            float friction = onGround ? 20.0f : 2.0f;
+            velocity.x -= velocity.x * friction * dt; 
+            if (std::abs(velocity.x) < 0.1f) velocity.x = 0.0f;
+        }
+
+        if (wantsToJump && onGround) {
+            velocity.y = -18.0f; 
+        }
+
+        b2Body_SetLinearVelocity(m_bodyId, velocity);
+    }
+
+    void setPosition(sf::Vector2f pos) noexcept {
+        if (b2Body_IsValid(m_bodyId)) {
+            b2Body_SetTransform(m_bodyId, b2Vec2{pos.x / 32.0f, pos.y / 32.0f}, b2Rot_identity);
+        }
+    }
+    
+    [[nodiscard]] bool isOnGround() const noexcept {
+        return checkOnGround();
+    }
+
+    void move(const sf::Vector2f& delta) noexcept override {
+        if (!b2Body_IsValid(m_bodyId)) return;
+        b2Vec2 pos = b2Body_GetPosition(m_bodyId);
+        b2Body_SetTransform(m_bodyId, b2Vec2{pos.x + delta.x / 32.0f, pos.y + delta.y / 32.0f}, b2Rot_identity);
+    }
+
+    [[nodiscard]] sf::Vector2f getPosition() const noexcept { return implPosition(); }
     [[nodiscard]] sf::Vector2f getPreviousPosition() const noexcept { return m_previousPosition; }
-    [[nodiscard]] sf::Vector2f& getVelocity() noexcept { return m_velocity; }
-    [[nodiscard]] bool isOnGround() const noexcept { return m_onGround; }
-    
-    void setPosition(sf::Vector2f pos) noexcept { m_position = pos; }
+    void savePreviousPosition() noexcept { m_previousPosition = implPosition(); }
     void setSize(sf::Vector2f size) noexcept { m_size = size; }
 
-protected:
+    [[nodiscard]] sf::Vector2f implPosition() const noexcept override {
+        if (!b2Body_IsValid(m_bodyId)) return {0.f, 0.f};
+        b2Vec2 pos = b2Body_GetPosition(m_bodyId);
+        return sf::Vector2f(pos.x * 32.0f, pos.y * 32.0f);
+    }
+
+    [[nodiscard]] sf::Vector2f implSize() const noexcept override { return m_size; }
+    
+    [[nodiscard]] sf::Vector2f implVelocity() const noexcept override {
+        if (!b2Body_IsValid(m_bodyId)) return {0.f, 0.f};
+        b2Vec2 vel = b2Body_GetLinearVelocity(m_bodyId);
+        return sf::Vector2f(vel.x * 32.0f, vel.y * 32.0f);
+    }
+
+private:
+    bool checkOnGround() const noexcept {
+        if (!b2Body_IsValid(m_bodyId)) return false;
+        return std::abs(b2Body_GetLinearVelocity(m_bodyId).y) < 0.05f;
+    }
+
+    b2BodyId m_bodyId{b2_nullBodyId};
     sf::Vector2f m_previousPosition{0.0f, 0.0f};
-    sf::Vector2f m_position{100.0f, 100.0f};
-    sf::Vector2f m_velocity{0.0f, 0.0f};
-    sf::Vector2f m_size{24.0f, 64.0f};
-    bool m_onGround{false};
+    sf::Vector2f m_size{32.0f, 64.0f};
 };

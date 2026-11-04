@@ -18,7 +18,8 @@ public:
     [[nodiscard]] float getSpeed() const noexcept { return m_speed; }
     [[nodiscard]] sf::Vector2f getVisualPosition() const noexcept { return m_visualPosition; }
     [[nodiscard]] bool isOnGround() const noexcept { return CharacterBody::isOnGround(); }
-    [[nodiscard]] sf::Vector2f& getVelocity() noexcept { return CharacterBody::getVelocity(); }
+    
+    [[nodiscard]] sf::Vector2f getVelocity() noexcept { return CharacterBody::getVelocity(); }
 
     [[nodiscard]] ColliderType getType() const noexcept override { return ColliderType::DynamicEntity; }
 
@@ -40,5 +41,5 @@ private:
 
     static constexpr sf::Vector2f TEX_SIZE{16.0f, 32.0f};
     static constexpr sf::Vector2f SIZE{32.0f, 64.0f};
-    static constexpr sf::Vector2f PHYSICS_SIZE{24.0f, 60.0f}; 
+    static constexpr sf::Vector2f PHYSICS_SIZE{32.0f, 64.0f}; 
 };

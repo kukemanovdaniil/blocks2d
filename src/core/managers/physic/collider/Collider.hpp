@@ -1,17 +1,11 @@
 #pragma once
 #include <SFML/System/Vector2.hpp>
-#include <concepts>
+#include <utility>
 
 enum class ColliderType : char {
     StaticBlock,
     DynamicEntity,
     MovingPlatform
-};
-
-struct RaycastHit {
-    bool collided{false};
-    float hitTime{1.0f};
-    sf::Vector2f normal{0.0f, 0.0f};
 };
 
 class Collider {
@@ -36,7 +30,6 @@ public:
     [[nodiscard]] virtual ColliderType getType() const noexcept = 0;
 
     virtual void move(const sf::Vector2f& delta) noexcept = 0;
-    virtual void onCollision(Collider& other, const sf::Vector2f& normal) = 0;
 
 protected:
     [[nodiscard]] virtual sf::Vector2f implPosition() const noexcept = 0;

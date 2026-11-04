@@ -96,6 +96,26 @@ FetchContent_MakeAvailable(fastnoise_lite)
 
 
 # ==========================================
+# FETCH BOX2D
+# ==========================================
+
+FetchContent_Declare(
+    box2d
+    GIT_REPOSITORY https://github.com/erincatto/box2d
+    GIT_TAG v3.2.0
+    UPDATE_DISCONNECTED ON
+)
+
+set(BOX2D_BUILD_UNIT_TESTS OFF CACHE INTERNAL "")
+set(BOX2D_BUILD_SAMPLES OFF CACHE INTERNAL "")
+FetchContent_MakeAvailable(box2d)
+
+
+
+
+
+
+# ==========================================
 # FETCH JSON
 # ==========================================
 #FetchContent_Declare(
@@ -163,6 +183,7 @@ target_link_libraries(Blocks2d PRIVATE
     SFML::System
     ImGui-SFML::ImGui-SFML
 #    nlohmann_json::nlohmann_json
+    box2d::box2d
     OpenGL::GL
 )
 
