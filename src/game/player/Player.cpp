@@ -8,10 +8,10 @@ Player::Player() {
 
     setSize(PHYSICS_SIZE);
 
-    float posX0 = 0.0f;
-    float posX1 = SIZE.x;
-    float posY0 = 0.0f;
-    float posY1 = SIZE.y;
+    float posX0 = -SIZE.x / 2.0f;
+    float posX1 =  SIZE.x / 2.0f;
+    float posY0 = -SIZE.y / 2.0f;
+    float posY1 =  SIZE.y / 2.0f;
 
     float texX0 = 0.0f;
     float texX1 = TEX_SIZE.x;
@@ -32,6 +32,7 @@ Player::Player() {
     m_mesh[4].texCoords = sf::Vector2f{texX1, texY1};
     m_mesh[5].texCoords = sf::Vector2f{texX1, texY0};
 }
+
 
 void Player::modifyTileAtMouse(sf::RenderWindow& window, WorldManager& worldManager, bool isPlacing) noexcept {
     if (m_buildMode != BuildModeType::Block && m_buildMode != BuildModeType::Wall) return;

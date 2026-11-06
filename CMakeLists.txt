@@ -102,7 +102,7 @@ FetchContent_MakeAvailable(fastnoise_lite)
 FetchContent_Declare(
     box2d
     GIT_REPOSITORY https://github.com/erincatto/box2d
-    GIT_TAG v3.2.0
+    GIT_TAG v3.1.0
     UPDATE_DISCONNECTED ON
 )
 

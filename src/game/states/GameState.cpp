@@ -25,7 +25,7 @@ void GameState::init(EngineContext& context) {
     initWallData();
 
     m_worldManager.setAtlasTexture(blocksAtlas);
-    m_worldManager.createWorld(5);
+    m_worldManager.createWorld(25);
 
     m_player.setAtlasTexture(playerAtlas);
     m_player.initCharacterPhysics(b2World, sf::Vector2f(200.0f, 100.0f), sf::Vector2f(32.0f, 64.0f));
@@ -72,7 +72,7 @@ void GameState::updateTick(EngineContext& context, float tickTime) {
 
 void GameState::updateFrame(EngineContext& context, float deltaTime, float alpha) {
     m_player.interpolate(alpha);
-    m_camera->updateLerp(m_player.getVisualPosition() + (m_player.getSize() / 2.0f), deltaTime);
+    m_camera->updateLerp(m_player.getVisualPosition(), deltaTime);
 }
 
 void GameState::draw(EngineContext& context) {
@@ -82,7 +82,7 @@ void GameState::draw(EngineContext& context) {
     // ==========================================
     // SCREEN
     // ==========================================
-    context.window.clear(sf::Color{138, 235, 241, 255});
+    context.window.clear(sf::Color{164, 224, 249, 255});
 
     // ==========================================
     // WORLD
