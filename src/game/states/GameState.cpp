@@ -28,7 +28,7 @@ void GameState::init(EngineContext& context) {
     m_worldManager.createWorld(25);
 
     m_player.setAtlasTexture(playerAtlas);
-    m_player.initCharacterPhysics(b2World, sf::Vector2f(200.0f, 100.0f), sf::Vector2f(32.0f, 64.0f));
+    m_player.initCharacterPhysics(b2World, sf::Vector2f(0.0f, 0.0f), m_player.getHitboxSize());
 
     context.physicManager.addCollider(&m_player);
 

@@ -85,7 +85,7 @@ void DefaultGenerator::generateCaves(Chunk& chunk, int chunkX) {
         const int surfaceY = static_cast<int>(calculateSurfaceY(globalX));          
         const int bottomY = static_cast<int>(CHUNK_H) - 1;
 
-        for (int y = surfaceY + 1; y < bottomY - 3; ++y) {             
+        for (int y = surfaceY; y < bottomY - 3; ++y) {             
             const float caveNoiseValue = calculateCaveValue(globalX, y);             
 
             if (std::abs(caveNoiseValue) < 0.08f) {                 

@@ -6,8 +6,6 @@ Player::Player() {
     m_mesh.setPrimitiveType(sf::PrimitiveType::Triangles);
     m_mesh.resize(6);
 
-    setSize(PHYSICS_SIZE);
-
     float posX0 = -SIZE.x / 2.0f;
     float posX1 =  SIZE.x / 2.0f;
     float posY0 = -SIZE.y / 2.0f;

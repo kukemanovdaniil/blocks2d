@@ -5,10 +5,6 @@ set(CMAKE_CXX_STANDARD 23)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_SCAN_FOR_MODULES OFF)
 
-if(CMAKE_CXX_COMPILER_ID STREQUAL "GNU" OR CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
-    add_compile_options(-Wall -Wextra -Wpedantic)
-endif()
-
 
 
 
@@ -108,7 +104,20 @@ FetchContent_Declare(
 
 set(BOX2D_BUILD_UNIT_TESTS OFF CACHE INTERNAL "")
 set(BOX2D_BUILD_SAMPLES OFF CACHE INTERNAL "")
+
+if(CMAKE_C_COMPILER_ID MATCHES "GNU|Clang")
+    set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wno-error -Wno-maybe-uninitialized -Wno-unused-value")
+endif()
+
 FetchContent_MakeAvailable(box2d)
+
+if(TARGET box2d)
+    target_compile_options(box2d PRIVATE 
+        $<$<COMPILE_LANGUAGE:C>:-Wno-error -Wno-maybe-uninitialized -Wno-unused-value>
+        $<$<COMPILE_LANGUAGE:CXX>:-Wno-error -Wno-maybe-uninitialized -Wno-unused-value>
+    )
+endif()
+
 
 
 

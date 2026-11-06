@@ -22,7 +22,7 @@ void initBlockData() {
 
     BlockRegistry[static_cast<size_t>(BlockType::Oak)] = {BlockType::Oak, true, true, 7};
 
-    BlockRegistry[static_cast<size_t>(BlockType::Leaves)] = {BlockType::Leaves, true, true, 8};
+    BlockRegistry[static_cast<size_t>(BlockType::Leaves)] = {BlockType::Leaves, true, false, 8};
 }
 
 void initWallData() {
