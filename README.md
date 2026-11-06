@@ -83,10 +83,9 @@ The project started and continues to thrive as a personal endeavor, driven by tw
 # Screenshots
 
 <p align="left">
-  <img src="https://github.com/user-attachments/assets/004aaef5-e539-4364-b089-2ecd43d8e52b "width="90%" />
-  <img src="https://github.com/user-attachments/assets/9e286f6b-b6f8-4a4b-a2cb-66e15f524a92" width="90%" />
-  <img src="https://github.com/user-attachments/assets/4e99b83f-3797-4c72-9c18-0151f846f005" width="90%" />
-  
+  <img src="https://github.com/user-attachments/assets/f2797607-59df-4aa9-83b5-a5486101c004" "width="90%" />
+  <img src="https://github.com/user-attachments/assets/d1c1b7d7-bbbe-4907-ade6-55fee51bc6ed" "width="90%" />
+  <img src="https://github.com/user-attachments/assets/c7c7291d-d351-472c-b926-e97e8a3c492a" "width="90%" />
 </p>
 
 
